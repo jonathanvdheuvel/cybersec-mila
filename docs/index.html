@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cybersecurity Case Flashcards</title>
+<title>Cybersecurity and IT/AI auditing — Study Site</title>
 <style>
 /* ===== CSS RESET & BASE ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -864,6 +864,170 @@ button {
   background: var(--accent);
 }
 
+/* ===== MATERIALS PAGE ===== */
+.materials-page { display: none; }
+.materials-page.visible { display: block; }
+
+.materials-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.materials-hero {
+  background:
+    radial-gradient(circle at top left, rgba(99,102,241,0.14), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(14,165,233,0.12), transparent 28%),
+    var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.materials-hero h2 {
+  font-size: 1.8rem;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+.materials-hero p {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 820px;
+}
+
+.materials-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.materials-sidebar,
+.materials-viewer {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.materials-sidebar {
+  padding: 16px;
+  position: sticky;
+  top: 98px;
+}
+
+.materials-nav-group + .materials-nav-group {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.materials-nav-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.materials-link {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+
+.materials-link:hover {
+  background: var(--surface-hover);
+  border-color: var(--border);
+}
+
+.materials-link.active {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+
+.materials-link-name {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.materials-link-desc {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.materials-viewer {
+  padding: 18px;
+}
+
+.materials-toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.materials-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.materials-toolbar h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.materials-toolbar p {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 760px;
+}
+
+.materials-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.materials-frame-wrap {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface-hover);
+}
+
+.materials-frame {
+  width: 100%;
+  height: 78vh;
+  min-height: 720px;
+  border: 0;
+  background: #fff;
+}
+
 /* ===== NIST CSF REFERENCE PAGE ===== */
 .nist-page { display: none; }
 .nist-page.visible { display: block; }
@@ -1116,6 +1280,13 @@ button {
   .home-shell { padding: 16px; }
   .home-hero { padding: 22px 20px; }
   .home-hero h2 { font-size: 1.55rem; }
+  .materials-shell { padding: 16px; }
+  .materials-hero { padding: 22px 20px; }
+  .materials-hero h2 { font-size: 1.45rem; }
+  .materials-layout { grid-template-columns: 1fr; }
+  .materials-sidebar { position: static; }
+  .materials-toolbar { flex-direction: column; }
+  .materials-frame { min-height: 540px; height: 70vh; }
   .card-front, .card-back { padding: 24px 20px; min-height: 380px; }
   .card-container { min-height: 380px; }
   .card-flipper { min-height: 380px; }
@@ -1158,10 +1329,11 @@ button {
 
 <div class="header">
   <div class="header-inner">
-    <h1> BITM Cyber Security Flashcards</h1>
+    <h1>Cybersecurity and IT/AI auditing</h1>
     <div class="header-actions">
       <div class="mode-toggle">
         <button class="btn active" id="modeHomeBtn" onclick="setMode('home')">Home</button>
+        <button class="btn" id="modeMaterialsBtn" onclick="setMode('materials')">Slides</button>
         <button class="btn" id="modeCaseBtn" onclick="setMode('case')">Cases</button>
         <button class="btn" id="modeControlBtn" onclick="setMode('control')">Controls</button>
         <button class="btn exam-btn" id="modeExamBtn" onclick="setMode('exam')">Exam Practice</button>
@@ -1181,10 +1353,11 @@ button {
 <div class="home-page visible" id="homePage">
   <div class="home-shell">
     <div class="home-hero">
-      <div class="home-kicker">Cybersecurity Foundations I</div>
-      <h2>One small study site for cases, controls, exam practice, and framework reasoning.</h2>
-      <p>This website is built for the UvA BITM Cybersecurity Foundations I course. It is designed for the open-book exam and helps you study the way the course expects you to reason: what happened, why it matters for the business, which controls were weak or missing, what an auditor would test, and how the case maps back to governance and frameworks.</p>
+      <div class="home-kicker">Cybersecurity and IT/AI auditing</div>
+      <h2>One study site for cases, controls, exam practice, framework reasoning, and course PDFs.</h2>
+      <p>This website is built for the UvA BITM course <strong>Cybersecurity and IT/AI auditing</strong>. It is designed for the open-book exam and helps you study the way the course expects you to reason: what happened, why it matters for the business, which controls were weak or missing, what an auditor would test, how the case maps back to governance and frameworks, and where to reopen the source slides directly inside the site.</p>
       <div class="home-actions">
+        <button class="btn" onclick="setMode('materials')">Open Slides</button>
         <button class="btn active" onclick="setMode('case')">Open Cases</button>
         <button class="btn" onclick="setMode('control')">Open Controls</button>
         <button class="btn exam-btn" onclick="setMode('exam')">Open Exam Practice</button>
@@ -1220,11 +1393,43 @@ button {
         <h3>How To Use It</h3>
         <p>Start with Cases if you want to learn the incidents, Controls if you want reusable answers, Exam Practice if you want to simulate the exam, and NIST CSF if you want a framework reference while studying.</p>
         <ul class="home-list">
+          <li>Use <strong>Slides</strong> to open the lecture decks, reader, and tutorial answers directly on the page.</li>
           <li>Use <strong>Grid</strong> view to see all cards at once and compare them visually.</li>
           <li>The colored left edge shows the card's primary category.</li>
           <li>Within the case grid, cards are grouped by tier and then ordered by category color.</li>
         </ul>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="materials-page" id="materialsPage">
+  <div class="materials-shell">
+    <div class="materials-hero">
+      <div class="home-kicker">Cybersecurity and IT/AI auditing</div>
+      <h2>Slides and course PDFs, directly inside the website.</h2>
+      <p>Use this section to reopen the original lecture decks, the reader, and the tutorial answers without leaving the site. The left panel switches documents, and the embedded viewer opens the selected PDF on the page. If your browser prefers its own PDF viewer, use the open button.</p>
+    </div>
+    <div class="materials-layout">
+      <aside class="materials-sidebar">
+        <div id="materialsList"></div>
+      </aside>
+      <section class="materials-viewer">
+        <div class="materials-toolbar">
+          <div>
+            <div class="materials-eyebrow" id="materialsGroup"></div>
+            <h3 id="materialsTitle"></h3>
+            <p id="materialsDescription"></p>
+          </div>
+          <div class="materials-actions">
+            <a class="btn" id="materialsOpenLink" href="#" target="_blank" rel="noopener">Open PDF</a>
+            <a class="btn" id="materialsDownloadLink" href="#" download>Download</a>
+          </div>
+        </div>
+        <div class="materials-frame-wrap">
+          <iframe class="materials-frame" id="materialsFrame" title="Course PDF viewer"></iframe>
+        </div>
+      </section>
     </div>
   </div>
 </div>
@@ -1709,7 +1914,7 @@ button {
 
 <div class="footer">
   <div class="motivational"> Good luck </div>
-  <div>39 cases &middot; 19 controls &middot; 18 exam questions &middot; NIST CSF reference &middot; Cybersecurity Foundations I</div>
+  <div>39 cases &middot; 19 controls &middot; 18 exam questions &middot; PDF slide viewer &middot; Cybersecurity and IT/AI auditing</div>
 </div>
 
 <script>
@@ -3536,9 +3741,19 @@ const examColors = {
 const domainTags = ["governance","technical","human","cloud","supply-chain","audit","compliance","resilience"];
 const tierOptions = ["1-2","3","4-5"];
 const examOptions = ["Mock 2026","Exam A","Exam B"];
+const materials = [
+  {id:"lecture-1",group:"Lecture Slides",name:"Lecture 1 — Cybersecurity Basics and Impact",description:"Opening lecture on business impact, foundational incidents, and why cybersecurity matters at organizational level.",file:"pdfs/lecture-1.pdf"},
+  {id:"lecture-2",group:"Lecture Slides",name:"Lecture 2 — Cyber Risk Management and Threat Landscape",description:"Risk concepts, threat landscape, and scenario-based reasoning about impact and treatment.",file:"pdfs/lecture-2.pdf"},
+  {id:"lecture-3",group:"Lecture Slides",name:"Lecture 3 — Cybersecurity Controls and Frameworks",description:"Controls, frameworks, governance structures, and practical control mapping for the course.",file:"pdfs/lecture-3.pdf"},
+  {id:"lecture-4",group:"Lecture Slides",name:"Lecture 4 — Governance, Compliance, Regulation",description:"Governance, regulation, compliance duties, and how legal frameworks connect to cybersecurity practice.",file:"pdfs/lecture-4.pdf"},
+  {id:"lecture-5",group:"Lecture Slides",name:"Lecture 5 — IT-Auditing",description:"Audit approach, evidence, reporting logic, and the role of IT audit in organizational assurance.",file:"pdfs/lecture-5.pdf"},
+  {id:"lecture-6",group:"Lecture Slides",name:"Lecture 6 — Cyber and AI Auditing",description:"AI governance and audit topics, including copilot versus agentic systems and control implications.",file:"pdfs/lecture-6.pdf"},
+  {id:"reader",group:"Course Documents",name:"Course Reader",description:"Reader chapters with the core case studies, governance framing, terminology, and framework discussion.",file:"pdfs/reader.pdf"},
+  {id:"tutorial-answers",group:"Course Documents",name:"Tutorial Answers",description:"Tutorial answer keys and worked examples used to show grading style, audit reasoning, and model responses.",file:"pdfs/tutorial-answers.pdf"}
+];
 
 // ===== STATE =====
-let mode = "home"; // "home", "case", "control", "exam", "nist"
+let mode = "home"; // "home", "materials", "case", "control", "exam", "nist"
 let currentIndex = 0;
 let flipped = false;
 let activeDomains = new Set();
@@ -3549,11 +3764,13 @@ let bookmarks = JSON.parse(localStorage.getItem("cyberFlashBookmarks") || "{}");
 let filteredCards = [];
 let darkMode = localStorage.getItem("cyberFlashDark") === "true";
 let viewMode = localStorage.getItem("cyberFlashView") === "grid" ? "grid" : "single";
+let selectedMaterialId = localStorage.getItem("cyberFlashMaterial") || "lecture-1";
 
 // ===== INIT =====
 function init() {
   if (darkMode) document.body.classList.add("dark");
   buildFilterButtons();
+  renderMaterialsPage();
   syncViewButtons();
   setMode(mode);
 }
@@ -3695,7 +3912,7 @@ function syncViewButtons() {
 }
 
 function setViewMode(nextView) {
-  if (mode === "nist") return;
+  if (mode === "home" || mode === "materials" || mode === "nist") return;
   viewMode = nextView;
   flipped = false;
   localStorage.setItem("cyberFlashView", viewMode);
@@ -3706,11 +3923,57 @@ function setViewMode(nextView) {
 function getModeDisplayLabel() {
   return {
     home: "Home",
+    materials: "Slides",
     case: "Cases",
     control: "Controls",
     exam: "Exam Practice",
     nist: "NIST CSF"
   }[mode] || "Cards";
+}
+
+function getSelectedMaterial() {
+  return materials.find(m => m.id === selectedMaterialId) || materials[0];
+}
+
+function selectMaterial(id) {
+  selectedMaterialId = id;
+  localStorage.setItem("cyberFlashMaterial", id);
+  renderMaterialsPage();
+}
+
+function renderMaterialsPage() {
+  const listEl = document.getElementById("materialsList");
+  const groupEl = document.getElementById("materialsGroup");
+  const titleEl = document.getElementById("materialsTitle");
+  const descEl = document.getElementById("materialsDescription");
+  const frameEl = document.getElementById("materialsFrame");
+  const openLinkEl = document.getElementById("materialsOpenLink");
+  const downloadLinkEl = document.getElementById("materialsDownloadLink");
+  const selected = getSelectedMaterial();
+  const groupOrder = ["Lecture Slides","Course Documents"];
+
+  listEl.innerHTML = groupOrder.map(group => {
+    const items = materials.filter(item => item.group === group);
+    if (!items.length) return "";
+    return `
+      <div class="materials-nav-group">
+        <div class="materials-nav-title">${group}</div>
+        ${items.map(item => `
+          <button class="materials-link ${item.id === selected.id ? "active" : ""}" onclick="selectMaterial('${item.id}')">
+            <span class="materials-link-name">${item.name}</span>
+            <span class="materials-link-desc">${item.description}</span>
+          </button>
+        `).join("")}
+      </div>
+    `;
+  }).join("");
+
+  groupEl.textContent = selected.group;
+  titleEl.textContent = selected.name;
+  descEl.textContent = selected.description;
+  frameEl.src = `${selected.file}#view=FitH`;
+  openLinkEl.href = selected.file;
+  downloadLinkEl.href = selected.file;
 }
 
 function getGridCountLabel(total) {
@@ -4058,13 +4321,13 @@ function renderExamCard(q) {
 
 // ===== INTERACTIONS =====
 function flipCard() {
-  if (viewMode !== "single" || mode === "home" || mode === "nist") return;
+  if (viewMode !== "single" || mode === "home" || mode === "materials" || mode === "nist") return;
   flipped = !flipped;
   document.getElementById("cardFlipper").classList.toggle("flipped", flipped);
 }
 
 function nextCard() {
-  if (viewMode !== "single" || mode === "home" || mode === "nist") return;
+  if (viewMode !== "single" || mode === "home" || mode === "materials" || mode === "nist") return;
   if (currentIndex < filteredCards.length - 1) {
     currentIndex++;
     flipped = false;
@@ -4073,7 +4336,7 @@ function nextCard() {
 }
 
 function prevCard() {
-  if (viewMode !== "single" || mode === "home" || mode === "nist") return;
+  if (viewMode !== "single" || mode === "home" || mode === "materials" || mode === "nist") return;
   if (currentIndex > 0) {
     currentIndex--;
     flipped = false;
@@ -4086,31 +4349,39 @@ function setMode(m) {
   currentIndex = 0;
   flipped = false;
   document.getElementById("modeHomeBtn").classList.toggle("active", m === "home");
+  document.getElementById("modeMaterialsBtn").classList.toggle("active", m === "materials");
   document.getElementById("modeCaseBtn").classList.toggle("active", m === "case");
   document.getElementById("modeControlBtn").classList.toggle("active", m === "control");
   document.getElementById("modeExamBtn").classList.toggle("active", m === "exam");
   document.getElementById("modeNistBtn").classList.toggle("active", m === "nist");
 
   const isHome = m === "home";
+  const isMaterials = m === "materials";
   const isNist = m === "nist";
   const mainEl = document.querySelector(".main");
   const filterBar = document.querySelector(".filter-bar");
   const nistPage = document.getElementById("nistPage");
   const homePage = document.getElementById("homePage");
+  const materialsPage = document.getElementById("materialsPage");
   const viewToggle = document.getElementById("viewToggle");
   const bookmarkBtn = document.getElementById("bookmarkFilterBtn");
   const shuffleBtn = document.getElementById("shuffleBtn");
 
   // Show/hide NIST reference page vs flashcard area
-  mainEl.style.display = isHome || isNist ? "none" : "block";
-  filterBar.style.display = isHome || isNist ? "none" : "block";
+  mainEl.style.display = isHome || isMaterials || isNist ? "none" : "block";
+  filterBar.style.display = isHome || isMaterials || isNist ? "none" : "block";
   homePage.classList.toggle("visible", isHome);
+  materialsPage.classList.toggle("visible", isMaterials);
   nistPage.classList.toggle("visible", isNist);
-  viewToggle.style.display = isHome || isNist ? "none" : "flex";
-  bookmarkBtn.style.display = isHome || isNist ? "none" : "inline-flex";
-  shuffleBtn.style.display = isHome || isNist ? "none" : "inline-flex";
+  viewToggle.style.display = isHome || isMaterials || isNist ? "none" : "flex";
+  bookmarkBtn.style.display = isHome || isMaterials || isNist ? "none" : "inline-flex";
+  shuffleBtn.style.display = isHome || isMaterials || isNist ? "none" : "inline-flex";
 
-  if (!isHome && !isNist) {
+  if (isMaterials) {
+    renderMaterialsPage();
+  }
+
+  if (!isHome && !isMaterials && !isNist) {
     // Show/hide appropriate filters
     document.getElementById("domainFilters").style.display = "flex";
     document.getElementById("tierFilters").style.display = m === "exam" ? "none" : "flex";
@@ -4190,7 +4461,7 @@ document.addEventListener("keydown", e => {
   else if (e.key === "ArrowLeft") { e.preventDefault(); prevCard(); }
   else if (e.key === " ") { e.preventDefault(); flipCard(); }
   else if (e.key === "s" || e.key === "S") {
-    if (mode === "home" || mode === "nist") return;
+    if (mode === "home" || mode === "materials" || mode === "nist") return;
     if (filteredCards.length === 0) return;
     const card = filteredCards[currentIndex];
     const key = mode === "case" ? "case_" + card.id : mode === "control" ? "ctrl_" + card.code : "exam_" + card.id;
