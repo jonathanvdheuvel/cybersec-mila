@@ -1,0 +1,4222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cybersecurity Case Flashcards</title>
+<style>
+/* ===== CSS RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f8f9fb;
+  --surface: #ffffff;
+  --surface-hover: #f3f4f6;
+  --text: #1a1a2e;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  --border: #e5e7eb;
+  --accent: #6366f1;
+  --accent-light: #eef2ff;
+  --accent-hover: #4f46e5;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --tag-governance: #6366f1;
+  --tag-technical: #0ea5e9;
+  --tag-human: #f59e0b;
+  --tag-cloud: #8b5cf6;
+  --tag-supply-chain: #ef4444;
+  --tag-audit: #10b981;
+  --tag-compliance: #ec4899;
+  --tag-resilience: #14b8a6;
+  --tag-insider: #f97316;
+  --star-color: #facc15;
+  --exam-color: #f43f5e;
+  --exam-light: #fff1f2;
+  --nist-color: #0d9488;
+  --nist-light: #f0fdfa;
+}
+
+.dark {
+  --bg: #0f1117;
+  --surface: #1a1c25;
+  --surface-hover: #252833;
+  --text: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --border: #2d3039;
+  --accent: #818cf8;
+  --accent-light: #1e1b4b;
+  --accent-hover: #a5b4fc;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.4);
+  --exam-color: #fb7185;
+  --exam-light: #1a1020;
+  --nist-color: #2dd4bf;
+  --nist-light: #0d1f1d;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+  overflow-x: hidden;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.header h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.header h1 span { color: var(--accent); }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ===== BUTTONS ===== */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  background: var(--surface);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.btn:hover { background: var(--surface-hover); color: var(--text); }
+.btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-icon {
+  width: 36px; height: 36px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+.btn-icon:hover { background: var(--surface-hover); color: var(--text); }
+.btn-icon.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* ===== MODE TOGGLE ===== */
+.mode-toggle {
+  display: flex;
+  background: var(--surface-hover);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  border: 1px solid var(--border);
+}
+
+.mode-toggle .btn {
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.mode-toggle .btn.active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.mode-toggle .btn.exam-btn.active {
+  background: var(--exam-color);
+}
+
+.mode-toggle .btn.nist-btn.active {
+  background: var(--nist-color);
+}
+
+/* ===== FILTER BAR ===== */
+.filter-bar {
+  max-width: 960px;
+  margin: 16px auto 0;
+  padding: 0 24px;
+}
+
+.filter-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.filter-section .label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-right: 4px;
+  white-space: nowrap;
+}
+
+.tag-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1.5px solid;
+  background: transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.tag-btn.active { color: #fff !important; }
+
+/* ===== MAIN AREA ===== */
+.main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ===== PROGRESS BAR ===== */
+.progress-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.progress-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.progress-track {
+  flex: 1;
+  height: 4px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.exam-mode .progress-fill { background: var(--exam-color); }
+
+/* ===== CARD CONTAINER ===== */
+.card-container {
+  perspective: 1200px;
+  min-height: 420px;
+  margin-bottom: 24px;
+}
+
+.card-flipper {
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.card-flipper.flipped { transform: rotateY(180deg); }
+
+.card-front, .card-back {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  min-height: 420px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-back { transform: rotateY(180deg); }
+
+.card-front-scroll,
+.card-back-inner {
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 4px;
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.card-id {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.card-id.exam-id {
+  color: var(--exam-color);
+  background: var(--exam-light);
+}
+
+.star-btn {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.15s;
+  padding: 4px;
+  line-height: 1;
+}
+
+.star-btn:hover { transform: scale(1.2); }
+.star-btn.starred { color: var(--star-color); }
+
+.card-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.card-description {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.card-prompt {
+  margin-top: auto;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  font-style: italic;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.card-section {
+  margin-bottom: 14px;
+}
+
+.card-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.exam-mode .card-section-title { color: var(--exam-color); }
+
+.card-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.card-section li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.card-section li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.exam-mode .card-section li::before { background: var(--exam-color); }
+
+.card-insight {
+  background: var(--accent-light);
+  border-left: 3px solid var(--accent);
+  padding: 10px 14px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.exam-insight {
+  background: var(--exam-light);
+  border-left-color: var(--exam-color);
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.card-tag {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.card-front-scroll::-webkit-scrollbar,
+.card-back-inner::-webkit-scrollbar { width: 4px; }
+.card-front-scroll::-webkit-scrollbar-track,
+.card-back-inner::-webkit-scrollbar-track { background: transparent; }
+.card-front-scroll::-webkit-scrollbar-thumb,
+.card-back-inner::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+
+/* ===== CONTROLS back card ===== */
+.control-case-item {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  background: var(--surface-hover);
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.control-case-item strong {
+  white-space: nowrap;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ===== GRID VIEW ===== */
+.grid-container {
+  display: none;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.grid-section-title {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.grid-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 6px solid var(--accent);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.grid-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.grid-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.grid-card-id {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.grid-card-bookmark {
+  color: var(--star-color);
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.grid-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.grid-card-subtitle {
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.grid-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.grid-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.grid-chip.primary {
+  color: #fff;
+  border-color: transparent;
+}
+
+/* ===== EXAM ANSWER SECTIONS ===== */
+.answer-part {
+  margin-bottom: 16px;
+}
+
+.answer-part-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--exam-color);
+  margin-bottom: 6px;
+  padding: 2px 8px;
+  background: var(--exam-light);
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.answer-part p {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.answer-part ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+.answer-part ul li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.answer-part ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--exam-color);
+}
+
+.exam-subq {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 6px;
+  padding-left: 4px;
+}
+
+.exam-subq strong {
+  color: var(--exam-color);
+  font-weight: 700;
+}
+
+/* ===== EXAM BADGE ===== */
+.exam-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: #fff;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.exam-badge.mock-2026 { background: #f43f5e; }
+.exam-badge.exam-a { background: #f97316; }
+.exam-badge.exam-b { background: #8b5cf6; }
+
+/* ===== NAV BUTTONS ===== */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.nav-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: var(--text);
+  transition: all 0.15s;
+}
+
+.nav-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: scale(1.05); }
+.nav-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+.nav-btn:disabled:hover { background: var(--surface); color: var(--text); border-color: var(--border); }
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--text-muted);
+}
+
+.empty-state .icon { font-size: 3rem; margin-bottom: 16px; }
+.empty-state h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--text-secondary); }
+.empty-state p { font-size: 0.875rem; }
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 32px 24px;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+.footer .motivational {
+  font-size: 1rem;
+  margin-bottom: 4px;
+  color: var(--text-secondary);
+}
+
+/* ===== KEYBOARD HINT ===== */
+.keyboard-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+.keyboard-hint kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 0.6875rem;
+  font-family: inherit;
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin: 0 2px;
+}
+
+/* ===== HOME PAGE ===== */
+.home-page { display: none; }
+.home-page.visible { display: block; }
+
+.home-shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.home-hero {
+  background:
+    radial-gradient(circle at top right, rgba(99,102,241,0.14), transparent 36%),
+    radial-gradient(circle at bottom left, rgba(13,148,136,0.12), transparent 32%),
+    var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: 28px;
+  margin-bottom: 20px;
+}
+
+.home-kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.home-hero h2 {
+  font-size: 2rem;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+.home-hero p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 760px;
+}
+
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.home-actions .btn {
+  padding: 10px 14px;
+  font-size: 0.8125rem;
+}
+
+.home-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.home-stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+}
+
+.home-stat-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.home-stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.home-stat-text {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.home-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 18px;
+}
+
+.home-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.home-card p {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.home-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 12px;
+}
+
+.home-list li {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 8px;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.home-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ===== NIST CSF REFERENCE PAGE ===== */
+.nist-page { display: none; }
+.nist-page.visible { display: block; }
+
+.nist-page h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.nist-page .page-subtitle {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.nist-page .page-subtitle em {
+  color: var(--nist-color);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.nist-functions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.nist-fn-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.nist-fn-card:hover { box-shadow: var(--shadow-md); }
+
+.nist-fn-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nist-fn-header:hover { background: var(--surface-hover); }
+
+.nist-fn-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.nist-fn-meta { flex: 1; }
+
+.nist-fn-meta h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.nist-fn-meta .fn-code {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.nist-fn-meta p {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.nist-fn-toggle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.nist-fn-card.open .nist-fn-toggle { transform: rotate(180deg); }
+
+.nist-fn-body {
+  display: none;
+  padding: 0 20px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.nist-fn-card.open .nist-fn-body { display: block; padding-top: 16px; }
+
+.nist-fn-body h4 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+
+.nist-fn-body h4:first-child { margin-top: 0; }
+
+.nist-fn-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nist-fn-body li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.nist-fn-body li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.nist-fn-body p {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.nist-fn-body .example-box {
+  background: var(--surface-hover);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+.nist-fn-body .example-box strong {
+  color: var(--text);
+}
+
+.nist-section {
+  margin-bottom: 32px;
+}
+
+.nist-section h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.nist-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 12px;
+}
+
+.nist-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.nist-table th {
+  text-align: left;
+  font-weight: 700;
+  padding: 10px 12px;
+  background: var(--surface-hover);
+  border-bottom: 2px solid var(--border);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.nist-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: top;
+}
+
+.nist-table tr:last-child td { border-bottom: none; }
+
+.nist-table .fn-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.nist-callout {
+  background: var(--nist-light);
+  border-left: 3px solid var(--nist-color);
+  padding: 14px 18px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.nist-callout strong { color: var(--nist-color); }
+
+.nist-fn-color-gv { background: #6366f1; color: #fff; }
+.nist-fn-color-id { background: #0ea5e9; color: #fff; }
+.nist-fn-color-pr { background: #10b981; color: #fff; }
+.nist-fn-color-de { background: #f59e0b; color: #fff; }
+.nist-fn-color-rs { background: #ef4444; color: #fff; }
+.nist-fn-color-rc { background: #8b5cf6; color: #fff; }
+
+.nist-fn-body li.li-gv::before { background: #6366f1; }
+.nist-fn-body li.li-id::before { background: #0ea5e9; }
+.nist-fn-body li.li-pr::before { background: #10b981; }
+.nist-fn-body li.li-de::before { background: #f59e0b; }
+.nist-fn-body li.li-rs::before { background: #ef4444; }
+.nist-fn-body li.li-rc::before { background: #8b5cf6; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .header { padding: 12px 16px; }
+  .header h1 { font-size: 1.05rem; }
+  .main { padding: 16px; }
+  .filter-bar { padding: 0 16px; }
+  .home-shell { padding: 16px; }
+  .home-hero { padding: 22px 20px; }
+  .home-hero h2 { font-size: 1.55rem; }
+  .card-front, .card-back { padding: 24px 20px; min-height: 380px; }
+  .card-container { min-height: 380px; }
+  .card-flipper { min-height: 380px; }
+  .card-title { font-size: 1.15rem; }
+  .mode-toggle .btn { padding: 5px 10px; font-size: 0.75rem; }
+  .btn { padding: 6px 10px; font-size: 0.75rem; }
+  .header-actions { gap: 4px; }
+  .mode-toggle { flex-wrap: wrap; }
+  .grid-container { grid-template-columns: 1fr; gap: 12px; }
+  .grid-card { min-height: 144px; }
+}
+
+/* ===== COUNTER BADGE ===== */
+.counter-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  background: var(--accent);
+  color: #fff;
+  margin-left: 4px;
+}
+
+.btn.active .counter-badge {
+  background: rgba(255,255,255,0.3);
+}
+
+/* ===== TIER BADGE COLORS ===== */
+.tier-1-2 { background: #6366f1; color: #fff; }
+.tier-3 { background: #0ea5e9; color: #fff; }
+.tier-4-5 { background: #9ca3af; color: #fff; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1> BITM Cyber Security Flashcards</h1>
+    <div class="header-actions">
+      <div class="mode-toggle">
+        <button class="btn active" id="modeHomeBtn" onclick="setMode('home')">Home</button>
+        <button class="btn" id="modeCaseBtn" onclick="setMode('case')">Cases</button>
+        <button class="btn" id="modeControlBtn" onclick="setMode('control')">Controls</button>
+        <button class="btn exam-btn" id="modeExamBtn" onclick="setMode('exam')">Exam Practice</button>
+        <button class="btn nist-btn" id="modeNistBtn" onclick="setMode('nist')">NIST CSF</button>
+      </div>
+      <div class="mode-toggle" id="viewToggle">
+        <button class="btn active" id="viewSingleBtn" onclick="setViewMode('single')">Single</button>
+        <button class="btn" id="viewGridBtn" onclick="setViewMode('grid')">Grid</button>
+      </div>
+      <button class="btn-icon" id="bookmarkFilterBtn" onclick="toggleBookmarkFilter()" title="Show bookmarked only">&#9733;</button>
+      <button class="btn-icon" id="shuffleBtn" onclick="shuffleCards()" title="Shuffle cards">&#8645;</button>
+      <button class="btn-icon" id="darkModeBtn" onclick="toggleDarkMode()" title="Toggle dark mode">&#9789;</button>
+    </div>
+  </div>
+</div>
+
+<div class="home-page visible" id="homePage">
+  <div class="home-shell">
+    <div class="home-hero">
+      <div class="home-kicker">Cybersecurity Foundations I</div>
+      <h2>One small study site for cases, controls, exam practice, and framework reasoning.</h2>
+      <p>This website is built for the UvA BITM Cybersecurity Foundations I course. It is designed for the open-book exam and helps you study the way the course expects you to reason: what happened, why it matters for the business, which controls were weak or missing, what an auditor would test, and how the case maps back to governance and frameworks.</p>
+      <div class="home-actions">
+        <button class="btn active" onclick="setMode('case')">Open Cases</button>
+        <button class="btn" onclick="setMode('control')">Open Controls</button>
+        <button class="btn exam-btn" onclick="setMode('exam')">Open Exam Practice</button>
+        <button class="btn nist-btn" onclick="setMode('nist')">Open NIST CSF</button>
+      </div>
+    </div>
+
+    <div class="home-summary">
+      <div class="home-stat">
+        <div class="home-stat-label">Canonical Cases</div>
+        <div class="home-stat-value">39</div>
+        <div class="home-stat-text">Merged from the reader, lectures, and tutorials into one study set.</div>
+      </div>
+      <div class="home-stat">
+        <div class="home-stat-label">Control Cards</div>
+        <div class="home-stat-value">19</div>
+        <div class="home-stat-text">Cross-cutting controls mapped back to the incidents where they mattered.</div>
+      </div>
+      <div class="home-stat">
+        <div class="home-stat-label">Practice Questions</div>
+        <div class="home-stat-value">18</div>
+        <div class="home-stat-text">Mock and practice exam scenarios with model answers for revision.</div>
+      </div>
+      <div class="home-stat">
+        <div class="home-stat-label">Best Use</div>
+        <div class="home-stat-value">Open-book</div>
+        <div class="home-stat-text">Use the grid to scan fast, then open a single card when you want the fuller reasoning.</div>
+      </div>
+    </div>
+
+    <div class="home-grid">
+      <div class="home-card">
+        <h3>How To Use It</h3>
+        <p>Start with Cases if you want to learn the incidents, Controls if you want reusable answers, Exam Practice if you want to simulate the exam, and NIST CSF if you want a framework reference while studying.</p>
+        <ul class="home-list">
+          <li>Use <strong>Grid</strong> view to see all cards at once and compare them visually.</li>
+          <li>The colored left edge shows the card's primary category.</li>
+          <li>Within the case grid, cards are grouped by tier and then ordered by category color.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <div class="filter-section" id="domainFilters">
+    <span class="label">Domain:</span>
+  </div>
+  <div class="filter-section" id="tierFilters">
+    <span class="label">Tier:</span>
+  </div>
+  <div class="filter-section" id="examFilters" style="display:none;">
+    <span class="label">Exam:</span>
+  </div>
+</div>
+
+<div class="main">
+  <div class="progress-area">
+    <span class="progress-text" id="progressText">1 / 39</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-text" id="modeLabel">Cases</span>
+  </div>
+
+  <div class="card-container" id="cardContainer">
+    <div class="card-flipper" id="cardFlipper" onclick="flipCard()">
+      <div class="card-front" id="cardFront"></div>
+      <div class="card-back" id="cardBack"></div>
+    </div>
+  </div>
+
+  <div class="grid-container" id="gridContainer"></div>
+
+  <div class="empty-state" id="emptyState" style="display:none;">
+    <div class="icon">&#128269;</div>
+    <h3>No cards match your filters</h3>
+    <p>Try adjusting your filters, or clear all filters.</p>
+  </div>
+
+  <div class="nav-buttons" id="navButtons">
+    <button class="nav-btn" id="prevBtn" onclick="prevCard()" title="Previous card">&larr;</button>
+    <button class="nav-btn" id="nextBtn" onclick="nextCard()" title="Next card">&rarr;</button>
+  </div>
+
+  <div class="keyboard-hint" id="keyboardHint">
+    <kbd>&larr;</kbd> Previous &nbsp; <kbd>&rarr;</kbd> Next &nbsp; <kbd>Space</kbd> Flip &nbsp; <kbd>S</kbd> Star
+  </div>
+</div>
+
+<!-- ===== NIST CSF REFERENCE PAGE ===== -->
+<div class="nist-page" id="nistPage">
+  <div style="max-width:960px;margin:0 auto;padding:24px;">
+
+    <h2>NIST Cybersecurity Framework 2.0</h2>
+    <p class="page-subtitle">The NIST CSF is <em>often misunderstood as a technical checklist</em>. In reality, it is a governance framework designed to facilitate communication between technical and non-technical stakeholders. It organises cybersecurity activities into six functions, and the key course insight is that all five operational functions have relationships with the sixth function, Govern, which integrates them into enterprise decision-making.<br><span style="font-size:0.8125rem;color:var(--text-muted);">Source: Reader Ch. 3.5, College 3, College 4, Reader Ch. 6.5.3</span></p>
+
+    <div class="nist-callout">
+      <strong>Exam tip:</strong> When mapping a case to the NIST CSF, do not just name the function. Explain <em>what specifically failed</em> under that function and <em>what control would fix it</em>. Tutors penalise "control name-dropping without framework placement." Also remember that Govern was added in CSF 2.0 — the older version had only five functions.
+    </div>
+
+    <!-- ===== THE SIX FUNCTIONS ===== -->
+    <div class="nist-functions" id="nistFunctions">
+
+      <!-- GOVERN -->
+      <div class="nist-fn-card open" data-fn="gv">
+        <div class="nist-fn-header" onclick="toggleNistFn(this)">
+          <div class="nist-fn-icon nist-fn-color-gv">&#9881;</div>
+          <div class="nist-fn-meta">
+            <h3>Govern <span class="fn-code">(GV)</span></h3>
+            <p>Organisational context, risk strategy, roles and responsibilities, and oversight mechanisms that integrate cyber risk into enterprise governance.</p>
+          </div>
+          <div class="nist-fn-toggle">&#9660;</div>
+        </div>
+        <div class="nist-fn-body">
+          <h4 style="color:#6366f1;">Key activities from course materials</h4>
+          <div class="nist-table-wrap">
+            <table class="nist-table">
+              <thead><tr><th>Activity</th><th>What this means</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Risk appetite</strong></td><td>Define and communicate risk appetite so all levels of the organisation understand what is acceptable</td></tr>
+                <tr><td><strong>Governance structure</strong></td><td>The Three Lines Model assigns clear accountability — 1st line: operations, 2nd line: risk/compliance, 3rd line: internal audit</td></tr>
+                <tr><td><strong>Policy hierarchy</strong></td><td>Policy → Standard → Procedure → Guideline. Treat these as distinct, not interchangeable (exam anti-pattern #10)</td></tr>
+                <tr><td><strong>Board engagement</strong></td><td>Under NIS2 and DORA, board-level engagement with cybersecurity is a legal requirement, not just good practice</td></tr>
+                <tr><td><strong>Accountability frameworks</strong></td><td>Security decisions must have named owners, not just committees — otherwise nobody is responsible when things fail</td></tr>
+                <tr><td><strong>AI governance</strong></td><td>The EU AI Act requires risk classification and oversight throughout the AI system lifecycle</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h4 style="color:#6366f1;">Why Govern is central</h4>
+          <p>Govern is the function that connects all the others to business decision-making. Without Govern, an organisation might have excellent technical controls that nobody oversees, nobody updates, and nobody is accountable for — the exact pattern behind the "Certified but Compromised" case (C03) and the Equifax breach (C07), where known vulnerabilities went unpatched because of governance failures, not technical ones.</p>
+          <div class="example-box">
+            <strong>Case connection:</strong> In the NotPetya/Maersk exam question (Mock Q1), the IT manager argues the board doesn't need to be involved. The model answer says this attitude itself reveals a governance gap — no bridge between technical operations and executive leadership. That is a Govern failure.
+          </div>
+        </div>
+      </div>
+
+      <!-- IDENTIFY -->
+      <div class="nist-fn-card" data-fn="id">
+        <div class="nist-fn-header" onclick="toggleNistFn(this)">
+          <div class="nist-fn-icon nist-fn-color-id">&#128269;</div>
+          <div class="nist-fn-meta">
+            <h3>Identify <span class="fn-code">(ID)</span></h3>
+            <p>Understanding and managing organisational assets, data, and processes that need protection. You cannot protect what you do not know you have.</p>
+          </div>
+          <div class="nist-fn-toggle">&#9660;</div>
+        </div>
+        <div class="nist-fn-body">
+          <h4 style="color:#0ea5e9;">Key activities from course materials</h4>
+          <div class="nist-table-wrap">
+            <table class="nist-table">
+              <thead><tr><th>Activity</th><th>What this means</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Asset classification &amp; inventory</strong></td><td>Which systems, data, and processes are critical? You cannot protect what you do not know you have.</td></tr>
+                <tr><td><strong>Data classification</strong></td><td>What sensitivity level does each data type have? Especially relevant for GDPR special categories like health data.</td></tr>
+                <tr><td><strong>Risk assessment</strong></td><td>What threats apply, what is the likelihood and impact? NIST SP 800-30 provides the methodology.</td></tr>
+                <tr><td><strong>Business impact analysis</strong></td><td>How does loss of each asset affect the business in financial, operational, regulatory, and reputational terms?</td></tr>
+                <tr><td><strong>Vendor risk assessment</strong></td><td>Understand dependencies on third parties and their security posture before and during the relationship.</td></tr>
+                <tr><td><strong>HR processes</strong></td><td>Knowing who has access to what, especially during role changes and exits — access must follow the person's actual role.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h4 style="color:#0ea5e9;">Resilience mapping (Reader Table 6.1)</h4>
+          <p>Identify supports the resilience objective of <strong>anticipating and preparing for disruption</strong> through asset understanding, risk assessment, business environment analysis, and preparedness planning aligned with mission objectives.</p>
+          <div class="example-box">
+            <strong>Case connection:</strong> In the UvaExpress logistics case (Mock Q3), attackers exploited a single set of credentials to modify shipment data, steal customer info, and disrupt batch processing. The Identify failure was that no asset inventory classified the order-tracking platform as high-value, and no risk assessment had modelled credential theft scenarios.
+          </div>
+        </div>
+      </div>
+
+      <!-- PROTECT -->
+      <div class="nist-fn-card" data-fn="pr">
+        <div class="nist-fn-header" onclick="toggleNistFn(this)">
+          <div class="nist-fn-icon nist-fn-color-pr">&#128737;</div>
+          <div class="nist-fn-meta">
+            <h3>Protect <span class="fn-code">(PR)</span></h3>
+            <p>Implementing safeguards to ensure delivery of critical services. This is where preventive controls live — access management, encryption, segmentation, training.</p>
+          </div>
+          <div class="nist-fn-toggle">&#9660;</div>
+        </div>
+        <div class="nist-fn-body">
+          <h4 style="color:#10b981;">Key controls mapped in course</h4>
+          <div class="nist-table-wrap">
+            <table class="nist-table">
+              <thead><tr><th>Control</th><th>What it does</th><th>Case example</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Access controls / IAM</strong></td><td>Identity and Access Management, including MFA, RBAC, and least privilege</td><td>UvaExpress (Mock Q3), MGM (C14)</td></tr>
+                <tr><td><strong>Encryption</strong></td><td>Both in transit and at rest — increases confidentiality, may slightly reduce availability</td><td>Spreadsheet (C02)</td></tr>
+                <tr><td><strong>Network segmentation</strong></td><td>Limits blast radius when attackers gain access to one part of the network</td><td>Target (C08), NotPetya (C10)</td></tr>
+                <tr><td><strong>Patch management</strong></td><td>Apply security patches promptly — delays are among the most common root causes</td><td>Equifax (C07), WannaCry (C09)</td></tr>
+                <tr><td><strong>Security awareness training</strong></td><td>Addresses the human factor — phishing, social engineering, shadow IT</td><td>GreenBank (Exam A, Q2)</td></tr>
+                <tr><td><strong>Data Loss Prevention (DLP)</strong></td><td>Prevents unauthorised data export to personal devices or cloud accounts</td><td>Spreadsheet (C02)</td></tr>
+                <tr><td><strong>Endpoint hardening</strong></td><td>Secure configuration reduces the attack surface on individual systems</td><td>Misconfigured Cloud (C05)</td></tr>
+                <tr><td><strong>Separation of duties</strong></td><td>No single person can both initiate and approve critical actions</td><td>GreenBank treasury incident (Exam A, Q2)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h4 style="color:#10b981;">Cross-function dependencies</h4>
+          <p>Protect controls depend on Identify — you need to know what assets you have before you can protect them. College 3 uses access control as the teaching example: it is a "Protect" control that <strong>depends on</strong> "Identify" controls (asset management, HR processes), <strong>feeds input to</strong> "Detect" controls (logging of access detects unusual behaviour), and <strong>can enforce</strong> "Respond" controls (closing down access during an incident).</p>
+          <div class="example-box">
+            <strong>CIA impact:</strong> Encryption increases confidentiality but may slightly reduce availability. MFA improves confidentiality but slightly reduces availability if it fails. Access controls improve confidentiality but may decrease availability if too restrictive. These trade-offs are exam material.
+          </div>
+        </div>
+      </div>
+
+      <!-- DETECT -->
+      <div class="nist-fn-card" data-fn="de">
+        <div class="nist-fn-header" onclick="toggleNistFn(this)">
+          <div class="nist-fn-icon nist-fn-color-de">&#128680;</div>
+          <div class="nist-fn-meta">
+            <h3>Detect <span class="fn-code">(DE)</span></h3>
+            <p>Identifying and alerting on cybersecurity events in a timely manner. The bridge between prevention and response — determines whether a breach is found in hours or months.</p>
+          </div>
+          <div class="nist-fn-toggle">&#9660;</div>
+        </div>
+        <div class="nist-fn-body">
+          <h4 style="color:#f59e0b;">Key controls mapped in course</h4>
+          <div class="nist-table-wrap">
+            <table class="nist-table">
+              <thead><tr><th>Control</th><th>What it does</th><th>Key detail</th></tr></thead>
+              <tbody>
+                <tr><td><strong>IDS/IPS</strong></td><td>Intrusion Detection/Prevention Systems monitor network traffic for malicious patterns</td><td>Prevention (IPS) blocks; detection (IDS) alerts</td></tr>
+                <tr><td><strong>SIEM</strong></td><td>Security Information and Event Management aggregates and correlates log data across systems</td><td>Central visibility across the whole environment</td></tr>
+                <tr><td><strong>Anomaly detection</strong></td><td>Identifies deviations from normal behaviour</td><td>Critical for insider threats and advanced persistent threats</td></tr>
+                <tr><td><strong>Log monitoring</strong></td><td>Logging of access is input for Detect controls to spot unusual behaviour</td><td>Explicitly taught in College 3 as the link from Protect to Detect</td></tr>
+                <tr><td><strong>Vulnerability scanning</strong></td><td>Proactively identifies weaknesses before attackers exploit them</td><td>Equifax had a scanner — but nobody acted on the results</td></tr>
+                <tr><td><strong>Database activity monitoring</strong></td><td>Tracks who accessed what data and when</td><td>Essential for detecting data exfiltration</td></tr>
+                <tr><td><strong>Access reviews</strong></td><td>Periodic review of who has access to what</td><td>Both a detective and a governance activity</td></tr>
+                <tr><td><strong>Fraud detection</strong></td><td>A compensating control for failing integrity or access controls</td><td>College 3: compensating controls cover gaps when primary controls fail</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h4 style="color:#f59e0b;">Why Detect matters most</h4>
+          <p>In the Mock Exam 2026 Q3 model answer, Detect is called the <strong>most beneficial NIST category to prioritise</strong>. When preventive controls fail (and they eventually will), Detect determines whether you discover the breach in hours or months. Equifax was exploited for months before detection. Effective detection also improves all other functions through feedback loops — you learn what Protect controls are failing and what Respond playbooks you need.</p>
+          <div class="example-box">
+            <strong>Compensating controls:</strong> Different control types can work together, or one can compensate another when it fails. A firewall is a preventive control, but it also helps detection because it de-noises the network. Fraud detection compensates for failing integrity controls. This interplay is specifically taught in College 3.
+          </div>
+        </div>
+      </div>
+
+      <!-- RESPOND -->
+      <div class="nist-fn-card" data-fn="rs">
+        <div class="nist-fn-header" onclick="toggleNistFn(this)">
+          <div class="nist-fn-icon nist-fn-color-rs">&#9888;</div>
+          <div class="nist-fn-meta">
+            <h3>Respond <span class="fn-code">(RS)</span></h3>
+            <p>Taking action on detected incidents to contain damage and coordinate the response across technical, business, legal, and communication channels.</p>
+          </div>
+          <div class="nist-fn-toggle">&#9660;</div>
+        </div>
+        <div class="nist-fn-body">
+          <h4 style="color:#ef4444;">Key activities from course materials</h4>
+          <div class="nist-table-wrap">
+            <table class="nist-table">
+              <thead><tr><th>Activity</th><th>What this means</th><th>Key detail</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Incident response coordination</strong></td><td>Who does what, when, and with what authority?</td><td>Pre-planned playbooks per scenario type — do not improvise during a crisis</td></tr>
+                <tr><td><strong>Crisis communication</strong></td><td>Internal (staff, board) and external (regulators, customers, media)</td><td>Maersk CEO's transparency actually improved long-term reputation</td></tr>
+                <tr><td><strong>Threat containment</strong></td><td>Isolating affected systems, revoking access, blocking lateral movement</td><td>Access control serves as an enforcement point here (College 3)</td></tr>
+                <tr><td><strong>Evidence preservation</strong></td><td>Maintaining forensic integrity for investigation and legal proceedings</td><td>Premature system shutdowns can destroy evidence (NordFreight, Exam A Q1)</td></tr>
+                <tr><td><strong>Regulatory notification</strong></td><td>GDPR: breach notification within 72 hours</td><td>NIS2 and DORA have their own reporting obligations and timelines</td></tr>
+                <tr><td><strong>Third-party coordination</strong></td><td>Involving vendors, law enforcement, and external forensics</td><td>Vendor incident notification SLAs should be contracted in advance</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h4 style="color:#ef4444;">Access control as a Respond enforcement point</h4>
+          <p>College 3 teaches that access control can serve as an enforcement point for Respond — for example, closing down or restricting access to reduce the impact of an ongoing incident. This is a concrete example of how a single control operates across multiple CSF functions simultaneously.</p>
+          <div class="example-box">
+            <strong>Case connection:</strong> In the NordFreight supply chain case (Exam A, Q1), the board wanted to immediately terminate the VesselCore vendor contract. The model answer explains that this is itself a Respond failure — proper containment comes first (isolate, forensics, revoke access), then a structured exit. Cutting off a critical vendor in a panic creates a self-inflicted availability crisis.
+          </div>
+        </div>
+      </div>
+
+      <!-- RECOVER -->
+      <div class="nist-fn-card" data-fn="rc">
+        <div class="nist-fn-header" onclick="toggleNistFn(this)">
+          <div class="nist-fn-icon nist-fn-color-rc">&#128260;</div>
+          <div class="nist-fn-meta">
+            <h3>Recover <span class="fn-code">(RC)</span></h3>
+            <p>Restoring capabilities and services that were impaired, and using the incident as a learning opportunity to strengthen future resilience.</p>
+          </div>
+          <div class="nist-fn-toggle">&#9660;</div>
+        </div>
+        <div class="nist-fn-body">
+          <h4 style="color:#8b5cf6;">Key activities from course materials</h4>
+          <div class="nist-table-wrap">
+            <table class="nist-table">
+              <thead><tr><th>Activity</th><th>What this means</th><th>Key detail</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Recovery planning</strong></td><td>Defined RTO (Recovery Time Objective) and RPO (Recovery Point Objective) per critical system</td><td>These must be set before an incident — not decided during one</td></tr>
+                <tr><td><strong>Backup &amp; restoration</strong></td><td>Tested offline/immutable backups that actually work under pressure</td><td>Having backups is not enough — you must prove they restore correctly</td></tr>
+                <tr><td><strong>Business continuity</strong></td><td>Maintaining essential functions during recovery through manual procedures, redundancy, or alternative systems</td><td>Maersk ran global shipping on paper and WhatsApp for days</td></tr>
+                <tr><td><strong>Lessons learned</strong></td><td>Structured post-incident review to identify root causes and improve controls</td><td>Without this, you repeat the same failure (exam anti-pattern #9)</td></tr>
+                <tr><td><strong>Continuous improvement</strong></td><td>Feeding recovery experience back into Govern, Identify, and Protect</td><td>This is the Recover → Govern feedback loop the course emphasises</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h4 style="color:#8b5cf6;">Resilience mapping (Reader Table 6.1)</h4>
+          <p>Recover serves two resilience objectives: <strong>"maintain and restore essential functions"</strong> (together with Respond — incident response coordination, recovery planning, backup and restoration, communication to sustain critical operations) and <strong>"adapt and improve over time"</strong> (together with Govern — lessons learned, control adjustments, strategy refinement, and continuous improvement). This dual role is important because it means Recover is not just about getting systems back online — it is also about getting <em>better</em>.</p>
+          <div class="example-box">
+            <strong>Case connection:</strong> Exam anti-pattern #9 is "one-off reaction with no structural improvement." If your answer describes how an organisation recovers from an incident but does not mention lessons learned or governance improvements, you are missing the Recover-to-Govern feedback loop that the course explicitly emphasises.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===== RESILIENCE MAPPING TABLE ===== -->
+    <div class="nist-section">
+      <h3>Resilience Objectives → CSF 2.0 Functions (Reader Table 6.1)</h3>
+      <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.5;margin-bottom:12px;">The course explicitly teaches that resilience is not confined to response and recovery. It emerges from coordinated governance, design, operation, and adaptation across the full cybersecurity lifecycle.</p>
+      <div class="nist-table-wrap">
+        <table class="nist-table">
+          <thead>
+            <tr>
+              <th>Resilience Objective</th>
+              <th>CSF 2.0 Functions</th>
+              <th>How it works</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Establish risk-informed leadership and accountability</strong></td>
+              <td><span class="fn-badge nist-fn-color-gv">Govern</span></td>
+              <td>Organisational context, risk strategy, roles and responsibilities, oversight mechanisms that integrate cyber risk into enterprise governance</td>
+            </tr>
+            <tr>
+              <td><strong>Anticipate and prepare for disruption</strong></td>
+              <td><span class="fn-badge nist-fn-color-id">Identify</span> <span class="fn-badge nist-fn-color-gv">Govern</span></td>
+              <td>Asset understanding, risk assessment, business environment analysis, preparedness planning aligned with mission objectives</td>
+            </tr>
+            <tr>
+              <td><strong>Limit impact and contain incidents</strong></td>
+              <td><span class="fn-badge nist-fn-color-pr">Protect</span> <span class="fn-badge nist-fn-color-de">Detect</span></td>
+              <td>Segmentation, access control, continuous monitoring, and anomaly detection to reduce blast radius and enable rapid response</td>
+            </tr>
+            <tr>
+              <td><strong>Maintain and restore essential functions</strong></td>
+              <td><span class="fn-badge nist-fn-color-rs">Respond</span> <span class="fn-badge nist-fn-color-rc">Recover</span></td>
+              <td>Incident response coordination, recovery planning, backup and restoration, communication to sustain critical operations</td>
+            </tr>
+            <tr>
+              <td><strong>Adapt and improve over time</strong></td>
+              <td><span class="fn-badge nist-fn-color-rc">Recover</span> <span class="fn-badge nist-fn-color-gv">Govern</span></td>
+              <td>Lessons learned, control adjustments, strategy refinement, continuous improvement of risk management practices</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== CROSS-FUNCTION CONTROL EXAMPLE ===== -->
+    <div class="nist-section">
+      <h3>How Controls Cross Functions — Access Control Example (College 3)</h3>
+      <div class="nist-callout">
+        Controls are not isolated within a single CSF function. The course uses <strong>access control</strong> to demonstrate how a single control type participates in multiple functions simultaneously. Understanding these relationships is essential for exam answers.
+      </div>
+      <div class="nist-table-wrap">
+        <table class="nist-table">
+          <thead>
+            <tr>
+              <th>CSF Function</th>
+              <th>Access Control's Role</th>
+              <th>What this means in practice</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="fn-badge nist-fn-color-id">Identify</span></td>
+              <td><strong>Depends on</strong> Identify</td>
+              <td>You need asset management and HR processes to know <em>what</em> to protect and <em>who</em> needs access. Without Identify, access control has no foundation.</td>
+            </tr>
+            <tr>
+              <td><span class="fn-badge nist-fn-color-pr">Protect</span></td>
+              <td><strong>Is</strong> a Protect control</td>
+              <td>Its primary classification — access control prevents unauthorised access to systems and data.</td>
+            </tr>
+            <tr>
+              <td><span class="fn-badge nist-fn-color-de">Detect</span></td>
+              <td><strong>Feeds input to</strong> Detect</td>
+              <td>Logging of access attempts provides the raw data that detection controls use to spot unusual behaviour and anomalies.</td>
+            </tr>
+            <tr>
+              <td><span class="fn-badge nist-fn-color-rs">Respond</span></td>
+              <td><strong>Enforcement point for</strong> Respond</td>
+              <td>During an incident, access can be revoked or restricted to contain the attack — closing down access reduces impact.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== CIA IMPACT TABLE ===== -->
+    <div class="nist-section">
+      <h3>CIA Impact by Control (College 3)</h3>
+      <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.5;margin-bottom:12px;">Every control affects the three dimensions of the CIA triad differently. Some controls involve trade-offs — for example, encryption increases confidentiality but may slightly reduce availability. These trade-offs regularly appear in exam questions.</p>
+      <div class="nist-table-wrap">
+        <table class="nist-table">
+          <thead>
+            <tr>
+              <th>Control</th>
+              <th>Confidentiality</th>
+              <th>Integrity</th>
+              <th>Availability</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Encryption</strong></td>
+              <td style="color:#10b981;font-weight:600;">&#9650; Increases</td>
+              <td style="color:var(--text-muted);">&#8212; Neutral</td>
+              <td style="color:var(--text-muted);">&#8212; Neutral (may slightly reduce)</td>
+            </tr>
+            <tr>
+              <td><strong>Access Controls / IAM</strong></td>
+              <td style="color:#10b981;font-weight:600;">&#9650; Increases</td>
+              <td style="color:#10b981;">&#9650; Slightly improves</td>
+              <td style="color:#ef4444;">&#9660; May slightly decrease</td>
+            </tr>
+            <tr>
+              <td><strong>Backups</strong></td>
+              <td style="color:var(--text-muted);">&#8212; Neutral</td>
+              <td style="color:#10b981;font-weight:600;">&#9650; Improves</td>
+              <td style="color:#10b981;font-weight:600;">&#9650; Improves</td>
+            </tr>
+            <tr>
+              <td><strong>Checksums / Digital Signatures</strong></td>
+              <td style="color:var(--text-muted);">&#8212; Neutral</td>
+              <td style="color:#10b981;font-weight:600;">&#9650; Improves</td>
+              <td style="color:var(--text-muted);">&#8212; Neutral</td>
+            </tr>
+            <tr>
+              <td><strong>Redundant Servers / Load Balancing</strong></td>
+              <td style="color:var(--text-muted);">&#8212; Neutral</td>
+              <td style="color:var(--text-muted);">&#8212; Neutral</td>
+              <td style="color:#10b981;font-weight:600;">&#9650; Improves</td>
+            </tr>
+            <tr>
+              <td><strong>Multi-Factor Authentication</strong></td>
+              <td style="color:#10b981;font-weight:600;">&#9650; Improves</td>
+              <td style="color:#10b981;">&#9650; Slightly improves</td>
+              <td style="color:#ef4444;">&#9660; Slightly reduces (if MFA fails)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== RELATED FRAMEWORKS ===== -->
+    <div class="nist-section">
+      <h3>How CSF Relates to Other Course Frameworks</h3>
+      <div class="nist-table-wrap">
+        <table class="nist-table">
+          <thead>
+            <tr>
+              <th>Framework</th>
+              <th>Relationship to CSF</th>
+              <th>When to cite it</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ISO/IEC 27001</strong></td>
+              <td>Compliance certification framework with controls that map to CSF functions. Certification proves process exists, not that security is effective.</td>
+              <td>When the question involves compliance or certification — but never say "we are ISO certified" as a standalone answer (anti-pattern #1)</td>
+            </tr>
+            <tr>
+              <td><strong>Three Lines Model</strong></td>
+              <td>Organisational structure for implementing the Govern function — who is accountable at each level</td>
+              <td>When the question asks about roles, accountability, or governance structure</td>
+            </tr>
+            <tr>
+              <td><strong>GDPR</strong></td>
+              <td>Data protection regulation focused on personal data. Different purpose from CSF but must be considered alongside it.</td>
+              <td>When personal data is involved — special categories (health data) trigger stricter obligations</td>
+            </tr>
+            <tr>
+              <td><strong>NIS2</strong></td>
+              <td>EU directive for critical infrastructure that aligns with CSF concepts — requires appropriate measures, incident reporting, board oversight</td>
+              <td>When the organisation is essential/important infrastructure or provides critical services</td>
+            </tr>
+            <tr>
+              <td><strong>DORA</strong></td>
+              <td>Digital Operational Resilience Act for financial sector — board must own ICT risk, structured vendor oversight required</td>
+              <td>When the organisation is a financial institution or provides ICT services to one</td>
+            </tr>
+            <tr>
+              <td><strong>EU AI Act</strong></td>
+              <td>Risk-based AI regulation. AI governance falls under Govern; AI-specific controls span Protect, Detect, and Respond.</td>
+              <td>When AI/ML systems are part of the scenario — classify risk level first (high-risk triggers strictest obligations)</td>
+            </tr>
+            <tr>
+              <td><strong>NIST SP 800-53</strong></td>
+              <td>The detailed control catalog underlying the CSF — provides specific technical and organisational controls per function</td>
+              <td>When you need to be specific about which controls exist within a CSF function</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== NIST SP REFERENCES ===== -->
+    <div class="nist-section">
+      <h3>NIST Special Publications Referenced in Course</h3>
+      <div class="nist-table-wrap">
+        <table class="nist-table">
+          <thead>
+            <tr><th>Publication</th><th>Topic</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>SP 800-30</strong></td><td>Risk assessment methodology</td></tr>
+            <tr><td><strong>SP 800-34</strong></td><td>Contingency planning</td></tr>
+            <tr><td><strong>SP 800-41</strong></td><td>Firewall deployment guidance</td></tr>
+            <tr><td><strong>SP 800-53 R5</strong></td><td>Detailed security and privacy control catalog (the controls behind the CSF)</td></tr>
+            <tr><td><strong>SP 800-63</strong></td><td>Digital identity and authentication guidelines</td></tr>
+            <tr><td><strong>SP 800-160</strong></td><td>Cyber resilience as an emergent property of systems</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer">
+  <div class="motivational"> Good luck </div>
+  <div>39 cases &middot; 19 controls &middot; 18 exam questions &middot; NIST CSF reference &middot; Cybersecurity Foundations I</div>
+</div>
+
+<script>
+// ===== DATA: CASES =====
+const cases = [
+  {
+    "id": "C01",
+    "name": "SolarWinds Supply Chain Attack",
+    "tier": "1-2",
+    "tags": [
+      "supply-chain",
+      "technical",
+      "governance"
+    ],
+    "what": "Attackers compromised the SolarWinds Orion build pipeline and inserted the Sunburst backdoor into a legitimate software update. Because customers trusted signed vendor updates, around 18,000 organizations installed the malicious code before FireEye exposed the campaign.",
+    "controls": [
+      "Supply chain integrity verification",
+      "Vendor security assessment",
+      "Monitoring/anomaly detection",
+      "Password policy (“solarwinds123”)"
+    ],
+    "audit": "Review the vendor lifecycle end to end: due diligence records, security clauses, assurance reports, update testing, network monitoring around Orion, and escalation of supplier risk findings. The key audit question is whether the organization had any independent check on a critical vendor before and after onboarding.",
+    "insight": "The attack weaponized trust itself. The memorable `solarwinds123` detail reinforces the course theme that basic governance failures can sit underneath very sophisticated incidents.",
+    "why": "This is the course's signature supply-chain case. It shows that vendor security is enterprise security, because one weak supplier can create systemic exposure across thousands of organizations.",
+    "plain": "A trusted software update was secretly poisoned, so customers infected themselves by installing what looked like a normal vendor update."
+  },
+  {
+    "id": "C02",
+    "name": "The Spreadsheet That Should Not Exist",
+    "tier": "1-2",
+    "tags": [
+      "human",
+      "governance",
+      "compliance"
+    ],
+    "what": "A sales manager exported customer PII to a personal cloud account to work more conveniently from home. The account was later compromised, exposing sensitive data even though there was no malicious intent, no technical exploit inside the company, and no clear written policy breach.",
+    "controls": [
+      "Data classification",
+      "DLP",
+      "Acceptable use policy",
+      "Security awareness training",
+      "Cloud usage governance"
+    ],
+    "audit": "Test whether sensitive data can be exported without control, whether policies explicitly cover personal cloud storage, and whether the company can see shadow IT usage. Evidence should include export logs, DLP rules, awareness records, and policy wording.",
+    "insight": "The right exam answer is not to blame the employee first. If \"no policy was violated\" yet the breach still happened, the deeper problem is a governance gap.",
+    "why": "This case teaches that cybersecurity incidents do not need hackers or malware to happen. Risk can emerge from ordinary business behavior when governance is vague and controls do not match how people actually work.",
+    "plain": "An employee used a personal cloud account for convenience, and that everyday shortcut turned into a data breach."
+  },
+  {
+    "id": "C03",
+    "name": "Certified but Compromised",
+    "tier": "1-2",
+    "tags": [
+      "governance",
+      "compliance",
+      "audit"
+    ],
+    "what": "An ISO-certified organization suffered a breach even though the right policies and documents existed on paper. In practice, enforcement was weak, risk assessments were treated as a box-ticking exercise, and leadership lacked clear visibility into real security performance.",
+    "controls": [
+      "Policy enforcement",
+      "Governance oversight",
+      "Risk assessment rigor",
+      "Leadership reporting",
+      "Continuous monitoring"
+    ],
+    "audit": "Do not stop at document review. Test whether controls operate in practice, whether exceptions are tracked, whether risk assessments change decisions, and whether leadership reports contain real performance indicators instead of reassurance.",
+    "insight": "\"We are ISO certified\" is explicitly treated as a tutor red flag when it is used as proof that the organization is secure.",
+    "why": "This is the clearest course example of compliance not equaling security. Students are expected to distinguish formal certification from actual control effectiveness.",
+    "plain": "The organization looked secure on paper, but the controls were weak in real life."
+  },
+  {
+    "id": "C04",
+    "name": "The Helpful Assistant",
+    "tier": "1-2",
+    "tags": [
+      "human",
+      "technical"
+    ],
+    "what": "An executive assistant gave credentials to a caller pretending to be a trusted vendor representative. The attacker used urgency, authority, and familiarity rather than a technical exploit to gain access to sensitive systems.",
+    "controls": [
+      "MFA",
+      "Verification procedures for credential requests",
+      "Role-specific security awareness training"
+    ],
+    "audit": "Review how credential resets and identity checks are handled in real workflows, especially by assistants, helpdesks, and other high-trust roles. Sampling training records is not enough; auditors should test whether staff can resist a convincing pretext.",
+    "insight": "No technical failure needed to occur. The weakness sat in a normal business interaction, which is why this case is so useful in exam answers about social engineering.",
+    "why": "The case shows that human interaction can be the primary attack surface. A breach can happen even when infrastructure is stable and nobody intended to do anything wrong.",
+    "plain": "The attacker did not hack the system first; they convinced a helpful person to hand over access."
+  },
+  {
+    "id": "C05",
+    "name": "Misconfigured Cloud Storage",
+    "tier": "1-2",
+    "tags": [
+      "cloud",
+      "technical",
+      "governance"
+    ],
+    "what": "During a cloud migration, financial data was placed in storage buckets that were left publicly accessible because insecure defaults and weak configuration checks went unnoticed. An attacker discovered the exposure and downloaded confidential data.",
+    "controls": [
+      "Configuration management / secure defaults",
+      "Automated config checks (CSPM)",
+      "Cloud governance",
+      "Access reviews",
+      "Security awareness for cloud"
+    ],
+    "audit": "Inspect the actual configuration state of cloud resources against approved baselines, not just policy documents. Auditors should also verify whether provisioning templates, review steps, and automated alerts exist to catch public exposure quickly.",
+    "insight": "The root cause was not malice but unmanaged complexity. In the course framing, cloud risk grows when organizations move faster than their governance model.",
+    "why": "The case demonstrates that cloud incidents are often caused by governance and configuration discipline failures, not by advanced attackers breaking through strong defenses.",
+    "plain": "Cloud data was left open to the internet because the setup was wrong and no one noticed in time."
+  },
+  {
+    "id": "C06",
+    "name": "Coordinated Ecosystem Failure",
+    "tier": "1-2",
+    "tags": [
+      "governance",
+      "human",
+      "technical",
+      "cloud",
+      "resilience"
+    ],
+    "what": "A multinational suffered a major breach when phishing and cloud misconfiguration occurred together. Either weakness alone would have been manageable, but their interaction created a much larger confidentiality, integrity, and availability problem.",
+    "controls": [
+      "End-to-end risk management",
+      "Ecosystem/interdependency monitoring",
+      "Holistic governance oversight",
+      "Anti-phishing controls",
+      "Cloud configuration management"
+    ],
+    "audit": "Assess whether the organization models cascading scenarios instead of testing controls one by one in isolation. Evidence should show cross-functional ownership, scenario exercises, and escalation of risks that span multiple domains.",
+    "insight": "The big lesson is not just that several controls failed, but that they failed in combination. That interaction effect is a recurring theme across the course.",
+    "why": "This is the reader's capstone case on systemic risk. It teaches that exam answers should look for interacting weaknesses across people, technology, process, and third parties rather than treating incidents as single-point failures.",
+    "plain": "Two moderate problems combined into one major incident, showing how cyber failures can stack together."
+  },
+  {
+    "id": "C07",
+    "name": "2017 Equifax Data Breach",
+    "tier": "1-2",
+    "tags": [
+      "governance",
+      "technical",
+      "compliance"
+    ],
+    "what": "Equifax left a known Apache Struts vulnerability unpatched for months and exposed data on roughly 147 million people. Internal audit had already identified weak patching, poor asset inventory, and an honor-system approach to remediation years earlier.",
+    "controls": [
+      "Patch management (honour system)",
+      "Asset inventory",
+      "Risk-based prioritization",
+      "Audit follow-up",
+      "Policy enforcement"
+    ],
+    "audit": "Verify that critical vulnerabilities are tied to accountable assets, tracked to closure, and independently confirmed as remediated. A strong audit answer should ask not only whether an issue was found, but whether anyone ensured the fix actually happened.",
+    "insight": "Equifax is the cleanest example of \"the organization knew and still failed.\" The course uses it to show that technology was not the limiting factor.",
+    "why": "This case is powerful because the breach was highly foreseeable. It connects technical hygiene failures directly to governance failure and ignored audit findings.",
+    "plain": "Equifax was breached through a known flaw that should already have been fixed."
+  },
+  {
+    "id": "C08",
+    "name": "2013 Target Data Breach",
+    "tier": "1-2",
+    "tags": [
+      "supply-chain",
+      "governance"
+    ],
+    "what": "Attackers first compromised HVAC vendor Fazio Mechanical and then used the vendor's access to reach Target's network. From there they moved to POS systems, deployed malware at scale, and exposed about 40 million payment cards.",
+    "controls": [
+      "Vendor risk management",
+      "Network segmentation (HVAC vendor on same network as POS)",
+      "Third-party access controls",
+      "Monitoring (system existed but alerts not acted on)"
+    ],
+    "audit": "Review the full third-party lifecycle: onboarding, access design, segmentation, monitoring, and periodic reassessment. Auditors should also test whether existing alerts were acted on instead of assuming that installing a tool equals control effectiveness.",
+    "insight": "Target had expensive tooling, but the organization did not translate that tooling into disciplined response. The vendor entry point is what makes the case unforgettable.",
+    "why": "Target is the classic third-party access case. It shows that a strong security budget is not enough when vendor access, network segmentation, and alert response are badly governed.",
+    "plain": "A supplier became the way into Target because third-party access was not properly contained."
+  },
+  {
+    "id": "C09",
+    "name": "WannaCry Ransomware",
+    "tier": "1-2",
+    "tags": [
+      "technical",
+      "resilience"
+    ],
+    "what": "WannaCry spread in May 2017 using EternalBlue, a known Windows vulnerability for which a patch was already available. The worm hit more than 150 countries, caused severe NHS disruption, and showed how quickly an unpatched environment can become an availability crisis.",
+    "controls": [
+      "Patch management",
+      "OS lifecycle management (Windows XP still in use)",
+      "Network segmentation",
+      "Backup and recovery (offline)",
+      "Business continuity planning"
+    ],
+    "audit": "Look for overdue critical patches, end-of-life operating systems, recovery testing, and realistic business continuity assumptions. The audit should connect technical patch status to business services like hospital operations.",
+    "insight": "\"The patch existed\" is the crucial detail. The incident was not caused by an impossible technical problem but by organizational inability to execute basic hygiene at scale.",
+    "why": "The case teaches that resilience failures often begin as patching failures. It also reminds students not to focus only on confidentiality, because the dominant business impact here was availability.",
+    "plain": "WannaCry spread because organizations left a known Windows weakness unpatched."
+  },
+  {
+    "id": "C10",
+    "name": "NotPetya at Maersk",
+    "tier": "1-2",
+    "tags": [
+      "supply-chain",
+      "technical",
+      "resilience",
+      "governance"
+    ],
+    "what": "NotPetya entered through the compromised Ukrainian ME.Doc software supply chain and behaved as a wiper rather than true ransomware. Maersk was collateral damage, but the impact was enormous: terminals shut down, global operations stalled, and losses reached hundreds of millions of dollars.",
+    "controls": [
+      "Supply chain verification",
+      "Patch management",
+      "Privileged access management (admin on normal machine)",
+      "Network segmentation",
+      "Legacy system management (Windows 2000)",
+      "Backup and recovery"
+    ],
+    "audit": "Test whether privileged accounts are isolated from normal workstations, whether legacy assets remain in critical paths, and whether recovery plans assume the management environment itself may be compromised. Third-party software updates also need explicit assurance.",
+    "insight": "Maersk was not the intended target, which is why the case is so effective for teaching systemic risk. The tutorials also emphasize that students lose points if they focus only on confidentiality here.",
+    "why": "This case combines supply-chain compromise, weak privileged access, legacy technology, and resilience failure in one story. It is one of the best examples of availability being the primary business impact.",
+    "plain": "A bad software update from a supplier, plus weak internal controls, shut down major parts of Maersk."
+  },
+  {
+    "id": "C11",
+    "name": "Jaguar Land Rover (2025)",
+    "tier": "1-2",
+    "tags": [
+      "supply-chain",
+      "technical",
+      "resilience"
+    ],
+    "what": "Attackers used credentials harvested by infostealer malware, likely through SaaS exposure, to move from initial access into core IT systems. Production was halted for more than a month and the economic impact extended well beyond the company itself.",
+    "controls": [
+      "Credential management",
+      "SaaS security",
+      "Network segmentation",
+      "Incident response/containment",
+      "Phishing prevention"
+    ],
+    "audit": "Review exposure of employee credentials, monitoring for infostealer compromise, segmentation between core operational systems and standard IT, and the speed of containment once suspicious access is detected.",
+    "insight": "JLR is used early in the course to show that the business impact of cyber incidents is not abstract. The downstream economic disruption matters as much as the technical entry vector.",
+    "why": "The case modernizes the classic breach narrative by showing SaaS and credential theft as the entry point. It also highlights that cyber incidents can create major operational and macroeconomic consequences.",
+    "plain": "Stolen credentials opened the door, and weak containment let the damage reach production."
+  },
+  {
+    "id": "C12",
+    "name": "CrowdStrike Falcon Outage (2024)",
+    "tier": "1-2",
+    "tags": [
+      "technical",
+      "resilience"
+    ],
+    "what": "A faulty CrowdStrike content update caused widespread Windows blue screens and disrupted airlines, hospitals, banks, and other essential services. The event was not a cyberattack; it was a failure in change quality, testing, and recovery design for a security product.",
+    "controls": [
+      "Software testing/QA",
+      "Change management",
+      "Rollback procedures",
+      "Business continuity planning"
+    ],
+    "audit": "Examine how content updates are tested, approved, staged, and rolled back for mission-critical tooling. The key assurance question is whether the organization is prepared for its own security stack to fail.",
+    "insight": "Students are expected to say explicitly that this was not a cyberattack. That distinction matters because it changes both the root-cause analysis and the control response.",
+    "why": "The course uses this case to remind students that resilience problems are not always caused by adversaries. A security tool can become a source of systemic availability risk if change management is weak.",
+    "plain": "A cybersecurity product update caused the outage itself; no attacker was needed."
+  },
+  {
+    "id": "C13",
+    "name": "University of Eindhoven Ransomware (2025)",
+    "tier": "1-2",
+    "tags": [
+      "technical",
+      "resilience"
+    ],
+    "what": "Eindhoven University was hit by ransomware but limited the damage by rapidly taking systems offline. The network remained unavailable for about a week, yet the quick shutdown prevented a worse outcome.",
+    "controls": [
+      "Perimeter defenses",
+      "Endpoint protection"
+    ],
+    "audit": "Evaluate whether the organization had a pre-agreed shutdown protocol, who had authority to trigger it, and whether essential services could continue during prolonged offline operation.",
+    "insight": "The teaching point is that resilience is not the same as prevention. A strong response can still be evidence of mature governance after an attack begins.",
+    "why": "This is one of the course's positive resilience examples. It shows that fast, decisive incident response can materially reduce harm even when prevention has already failed.",
+    "plain": "The university still got hit, but its fast shutdown kept the incident from becoming much worse."
+  },
+  {
+    "id": "C14",
+    "name": "MGM Resorts Attack",
+    "tier": "1-2",
+    "tags": [
+      "human",
+      "technical",
+      "governance"
+    ],
+    "what": "Attackers used OSINT to identify staff, socially engineered the helpdesk into resetting MFA, then moved laterally using legitimate administrative tools before deploying ransomware. Identity compromise came first; ransomware came last.",
+    "controls": [
+      "Helpdesk identity verification",
+      "MFA management",
+      "Privileged access management",
+      "Configuration management",
+      "OSINT exposure management",
+      "Lateral movement detection"
+    ],
+    "audit": "Test real helpdesk workflows for MFA resets, verify out-of-band identity checks, review administrative tool monitoring, and look for evidence that lateral movement would trigger detection before ransomware deployment.",
+    "insight": "\"Humans plus identity systems are now the primary attack surface\" is the core lesson. The real breach occurred well before the ransomware note appeared.",
+    "why": "This is the course's clearest modern attack chain. It reframes cyber risk around people, identity systems, and operational procedures rather than around malware alone.",
+    "plain": "Attackers first tricked the helpdesk and abused identity systems, and only later deployed ransomware."
+  },
+  {
+    "id": "C15",
+    "name": "Multi-Layered Cloud Migration",
+    "tier": "3",
+    "tags": [
+      "cloud",
+      "governance",
+      "technical",
+      "human"
+    ],
+    "what": "A financial services firm moved rapidly into public cloud under time pressure and accumulated weaknesses across technical, process, human, organizational, and third-party layers. No single flaw caused the risk; the danger came from the interaction of many partially managed conditions.",
+    "controls": [
+      "Change management",
+      "Least privilege",
+      "Cloud security training",
+      "Configuration baselines",
+      "Accountability structures",
+      "Contractual security requirements",
+      "Monitoring"
+    ],
+    "audit": "Audit each layer separately and then test the joins between them: who owns logging, who approves changes, what contracts require, and how shared responsibility is actually understood in operations.",
+    "insight": "The reader explicitly says that addressing only the technical layer still leaves the organization exposed. That sentence is almost an exam answer by itself.",
+    "why": "This is the course's strongest example of layered, interdependent risk. It teaches students to analyze cloud migration as a governance and accountability problem, not just a configuration problem.",
+    "plain": "The cloud migration created many small weaknesses across teams and processes, and together they became a serious risk."
+  },
+  {
+    "id": "C16",
+    "name": "BrightMart E-Commerce",
+    "tier": "3",
+    "tags": [
+      "technical",
+      "governance",
+      "cloud",
+      "compliance"
+    ],
+    "what": "BrightMart is a mid-sized retailer with customer data, remote access, public cloud hosting, and no dedicated security staff. Its controls have grown organically, which leaves predictable gaps around access, devices, incident response, and governance.",
+    "controls": [
+      "MFA",
+      "Dedicated security function",
+      "Formalized controls",
+      "BYOD policy",
+      "Incident response",
+      "Access reviews"
+    ],
+    "audit": "Use BrightMart like a template for a gap assessment: identify key assets, map threats, rank risks, and verify whether minimum hygiene controls are documented, assigned, and tested.",
+    "insight": "The case matters less because of a dramatic breach and more because it teaches the reasoning process the exam expects students to use.",
+    "why": "BrightMart is the worked example for the course's asset-threat-risk-control method. It represents the typical under-resourced SME that is operationally busy but structurally weak.",
+    "plain": "BrightMart is the example of a normal growing company that has useful systems but weak basic security structure."
+  },
+  {
+    "id": "C17",
+    "name": "Trading Company DDoS Exercise",
+    "tier": "3",
+    "tags": [
+      "technical",
+      "governance"
+    ],
+    "what": "The scenario evolves from a low-stakes informational website to a revenue-generating webshop that is connected insecurely to customer data. As the business context changes, the same technical threat turns into a much more serious business risk.",
+    "controls": [
+      "DDoS protection",
+      "Network segmentation",
+      "Risk-based decision making"
+    ],
+    "audit": "Ask whether the organization's risk assessment was refreshed when the website became revenue-critical and connected to sensitive systems. Segmentation and continuity assumptions should be tested against the newer business reality.",
+    "insight": "The technical threat is almost the same throughout the exercise, but the business meaning changes completely. That is the teaching trick behind the scenario.",
+    "why": "The exercise teaches risk appetite and context sensitivity. Students are expected to show that risk is not static; business dependence changes the impact calculation.",
+    "plain": "The same DDoS threat became much more serious once the website became important for revenue and customer data."
+  },
+  {
+    "id": "C18",
+    "name": "Internet-Facing App Access Rights",
+    "tier": "3",
+    "tags": [
+      "governance",
+      "technical",
+      "compliance"
+    ],
+    "what": "Sensitive customer data sat behind an internet-facing application, but privileged database access remained broadly available to multiple users at all times. The organization therefore carried integrity and confidentiality risk even without a visible external breach.",
+    "controls": [
+      "Privileged access management",
+      "Access reviews",
+      "Least privilege",
+      "Separation of duties"
+    ],
+    "audit": "Review who has privileged access, why they still need it, whether it is time-limited, and whether privileged activity is independently logged and reviewed.",
+    "insight": "The scenario is useful because it is easy to describe technically but the exam often rewards how well the risk is translated into business language.",
+    "why": "This case teaches that access-rights problems are governance problems as much as technical ones. It also helps students practice explaining the same issue differently to an operational owner and to senior leadership.",
+    "plain": "Too many people had constant privileged access to sensitive data, so one access problem could become a major incident."
+  },
+  {
+    "id": "C19",
+    "name": "HR Next Program Audit",
+    "tier": "3",
+    "tags": [
+      "audit",
+      "governance",
+      "compliance"
+    ],
+    "what": "A bank was migrating HR processes from Visma Raet to Alight/SAP under tight deadlines, while key assurance evidence such as SOC reports was missing. Concentration risk, migration integrity, privacy obligations, and fallback planning all surfaced during the audit.",
+    "controls": [
+      "Vendor assurance (SOC reports)",
+      "Data migration controls",
+      "GDPR compliance across SaaS",
+      "Concentration risk management",
+      "Fallback planning"
+    ],
+    "audit": "Follow the full audit cycle: planning, fieldwork, reporting, and follow-up. Evidence should include SOC reports, DPAs, migration rehearsals, payroll parallel runs, and governance over vendor dependency.",
+    "insight": "The value of the case is methodological. It teaches how to think and write like an auditor, not only how to name controls.",
+    "why": "This is the richest audit exercise in the tutorials. It shows how an auditor turns a complex SaaS migration into concrete findings, evidence requests, and follow-up actions.",
+    "plain": "The HR migration audit found that the bank was moving fast without enough vendor assurance, fallback planning, or privacy comfort."
+  },
+  {
+    "id": "C20",
+    "name": "FinTrust AssistAI (Copilot AI Audit)",
+    "tier": "3",
+    "tags": [
+      "audit",
+      "technical",
+      "governance"
+    ],
+    "what": "FinTrust introduced an AI copilot that processes bank data and supports employee work. The main concern is not autonomous action but whether the AI sees the right data, logs the right things, and produces output that staff review before use.",
+    "controls": [
+      "AI access authorization",
+      "Logging/auditability",
+      "Prompt filtering",
+      "Staff education on AI output review"
+    ],
+    "audit": "Test prompt-manipulation and data-extraction scenarios, review access boundaries, inspect logs, and verify that staff are prohibited from using unreviewed AI output with customers.",
+    "insight": "The line \"AI output may not be sent to customers without thorough review\" is one of the clearest control statements in the tutorial material.",
+    "why": "This case clarifies what changes when the AI acts as a copilot rather than as an agent. The control focus shifts toward data integrity, confidentiality, prompt abuse, and supervised usage.",
+    "plain": "With copilot AI, the main question is what data the AI can see and how carefully humans check its output."
+  },
+  {
+    "id": "C21",
+    "name": "FinTrust AutoPilot (Agentic AI Audit)",
+    "tier": "3",
+    "tags": [
+      "audit",
+      "technical",
+      "governance"
+    ],
+    "what": "FinTrust also considered an agentic AI that can take autonomous actions such as updating records or closing tickets. That moves the risk from \"what did the AI say?\" to \"what is the AI allowed to do and how can we stop it?\"",
+    "controls": [
+      "Human-in-the-loop approval",
+      "Cross-system access governance",
+      "Decision traces",
+      "Fail-safe mechanisms"
+    ],
+    "audit": "Sample autonomous actions end to end, verify approval thresholds, inspect trace logs, and test whether risky or erroneous behavior can be halted quickly without collateral damage.",
+    "insight": "The course wants students to explicitly separate copilot controls from agentic controls. Missing that distinction weakens exam answers.",
+    "why": "The case teaches that agentic AI requires a different control model from copilot AI. Once systems can act, approval logic, traceability, and fail-safe design become central.",
+    "plain": "With agentic AI, the big risk is no longer just bad advice but bad actions taken automatically."
+  },
+  {
+    "id": "C22",
+    "name": "SQL Injection Terminology Confusion",
+    "tier": "4-5",
+    "tags": [
+      "technical",
+      "governance"
+    ],
+    "what": "A SQL injection incident led to data exfiltration, but decision-makers described it as \"data loss\" in a way that implied an availability problem rather than a confidentiality breach. That mislabeling pushed the response in the wrong direction.",
+    "controls": [
+      "Incident classification",
+      "Input validation"
+    ],
+    "audit": "Verify that incident handling procedures require explicit CIA analysis and that staff use those categories consistently when classifying and escalating events.",
+    "insight": "The technical exploit is not the whole lesson here. The main lesson is that sloppy language creates sloppy governance.",
+    "why": "The case teaches that precise terminology matters in governance. If the CIA classification is wrong, reporting, escalation, and remediation can all drift off target.",
+    "plain": "The incident was described the wrong way, and that wrong label pushed the organization toward the wrong response."
+  },
+  {
+    "id": "C23",
+    "name": "Document Management System Value Asymmetry",
+    "tier": "4-5",
+    "tags": [
+      "governance",
+      "technical"
+    ],
+    "what": "Internal documents that seemed low-value to the organization were actually high-value to attackers because they revealed structure, controls, systems, and responsibilities. The organization therefore underestimated the confidentiality value of the information it held.",
+    "controls": [
+      "Asset classification (dual-perspective)"
+    ],
+    "audit": "Review whether classification schemes consider how documentation could support reconnaissance, privilege escalation, or attack planning.",
+    "insight": "A document can be operationally routine and still be strategically valuable to an attacker. That asymmetry is the key lesson.",
+    "why": "This is the clearest asset-classification example in the course. Students are expected to assess value from both the business perspective and the attacker perspective.",
+    "plain": "Documents that look boring internally can still be highly valuable to attackers because they reveal how the organization works."
+  },
+  {
+    "id": "C24",
+    "name": "Unpatched Database Exfiltration Risk",
+    "tier": "4-5",
+    "tags": [
+      "technical"
+    ],
+    "what": "Sensitive research data sat in an unpatched database with a remote code execution vulnerability. The case is presented as a compact example of how threat, vulnerability, and impact combine into a concrete risk.",
+    "controls": [
+      "Patch management",
+      "Vulnerability management"
+    ],
+    "audit": "Check whether vulnerability scans identify the issue, whether patch SLAs exist, whether the asset is classified correctly, and whether remediation priority reflects business sensitivity.",
+    "insight": "The formula matters because it structures exam reasoning. Students should not list threats and vulnerabilities separately without linking them to impact.",
+    "why": "This vignette gives students the risk formula in practice rather than as theory. It shows that risk is an emergent condition, not a property of a single asset or threat by itself.",
+    "plain": "An unpatched database holding valuable data is not just a technical weakness; it is a clear business risk."
+  },
+  {
+    "id": "C25",
+    "name": "“Is It Secure?” Governance Scenario",
+    "tier": "4-5",
+    "tags": [
+      "governance"
+    ],
+    "what": "Executives ask whether a system is secure as if security were a yes/no condition. The course reframes the better question as: what risks remain, and are they within tolerance?",
+    "controls": [
+      "Risk governance",
+      "Risk communication"
+    ],
+    "audit": "Assess whether leadership reporting is binary and reassuring or whether it shows remaining exposure, business impact, and decisions on acceptable risk.",
+    "insight": "Security is not a binary state. That sentence undercuts many superficial exam answers in one move.",
+    "why": "This scenario teaches how governance should talk about cybersecurity. Mature oversight is about residual risk and trade-offs, not false certainty.",
+    "plain": "The real governance question is not whether something is perfectly secure, but whether the remaining risk is acceptable."
+  },
+  {
+    "id": "C26",
+    "name": "Compliance Over Resilience",
+    "tier": "4-5",
+    "tags": [
+      "compliance",
+      "governance",
+      "audit"
+    ],
+    "what": "An organization optimized for passing audits and proving compliance, while its controls remained weak in practice. It looked orderly on paper but would struggle in a real incident.",
+    "controls": [
+      "Continuous monitoring",
+      "Control testing",
+      "Operational integration"
+    ],
+    "audit": "Test whether controls are performed, evidenced, and effective during normal operations, not merely whether the policy set exists.",
+    "insight": "The course repeatedly warns that audit readiness and real readiness are not the same thing.",
+    "why": "This compact case reinforces the same theme as Certified but Compromised from a different angle. Students should recognize the difference between documentary maturity and operational resilience.",
+    "plain": "An organization can pass audits and still be badly prepared for a real incident."
+  },
+  {
+    "id": "C27",
+    "name": "Insider Threat (Disgruntled Employee)",
+    "tier": "4-5",
+    "tags": [
+      "human",
+      "governance"
+    ],
+    "what": "A disgruntled employee used legitimate access to steal data and blackmail the organization. Because the access itself looked authorized, the harmful behavior blended into normal activity for too long.",
+    "controls": [
+      "Access monitoring",
+      "DLP",
+      "Behavioral analytics",
+      "Least privilege"
+    ],
+    "audit": "Review whether privileged or sensitive access is monitored for anomalous patterns, whether exfiltration controls exist, and whether access rights are periodically tightened as roles change.",
+    "insight": "The detection gap is the heart of the case. Legitimate access can still produce illegitimate outcomes.",
+    "why": "Insider cases are important because they break the simple outsider-attacker model. The challenge is detecting misuse of legitimate privilege rather than blocking an obvious external intrusion.",
+    "plain": "Someone inside the organization used legitimate access for the wrong purpose, which is why insider risk is hard to detect."
+  },
+  {
+    "id": "C28",
+    "name": "External Vendor Database Corruption",
+    "tier": "4-5",
+    "tags": [
+      "supply-chain",
+      "governance",
+      "human"
+    ],
+    "what": "A vendor employee bypassed the four-eyes principle and directly changed customer data in the database, causing integrity damage. The incident did not require external hacking; it required trust placed in the wrong process.",
+    "controls": [
+      "Four-eyes principle/dual control",
+      "Vendor access management",
+      "Privileged access management",
+      "Change management",
+      "Audit logging"
+    ],
+    "audit": "Verify that high-risk database changes require independent approval, that vendor privileges are narrow and time-bound, and that database changes are logged in a tamper-evident way.",
+    "insight": "The point is not only that a vendor caused the damage, but that the organization failed to constrain the vendor through process design.",
+    "why": "The case shows how third-party risk can threaten integrity rather than only confidentiality. It also demonstrates why separation of duties is a governance control with direct technical consequences.",
+    "plain": "A trusted vendor changed important data without proper checks, turning third-party trust into an integrity problem."
+  },
+  {
+    "id": "C29",
+    "name": "DDoS on SME Webshop",
+    "tier": "4-5",
+    "tags": [
+      "technical",
+      "resilience"
+    ],
+    "what": "A small webshop was hit by a DDoS attack, had little preparation, and ended up paying a ransom without any guarantee that service would be restored. The business was cornered by poor resilience rather than by a novel attack technique.",
+    "controls": [
+      "DDoS protection",
+      "BCP",
+      "Incident response preparation"
+    ],
+    "audit": "Test whether the webshop has any DDoS protection, escalation path, communication plan, and continuity strategy for revenue loss during prolonged disruption.",
+    "insight": "The case underlines a simple lesson: desperation grows where preparation is absent.",
+    "why": "This vignette reminds students that SMEs face real cyber extortion pressure too. Limited scale does not remove the need for continuity planning.",
+    "plain": "The webshop had no real DDoS plan, so the attackers turned disruption into pressure and panic."
+  },
+  {
+    "id": "C30",
+    "name": "AI Copilot Risk Assessment (University)",
+    "tier": "4-5",
+    "tags": [
+      "governance",
+      "technical",
+      "cloud"
+    ],
+    "what": "A university wanted to deploy an AI copilot with access to sensitive student, HR, and research information, while governance over who could see what remained unclear. Adoption pressure was moving faster than control design.",
+    "controls": [
+      "Data classification",
+      "Access governance for AI",
+      "Monitoring",
+      "GDPR compliance"
+    ],
+    "audit": "Review the datasets exposed to the AI, the roles allowed to use it, the vendor's processing obligations, and the controls for detecting overexposure or misuse.",
+    "insight": "\"The regulator will not accept blaming AI\" is the core warning. Human accountability does not disappear when an AI system is involved.",
+    "why": "This is the tutorial's practical AI governance case. It teaches that universities face the same data-boundary and accountability problems as banks, even if the regulatory framing differs.",
+    "plain": "The university wanted AI benefits before it had clear control over what data the tool could access."
+  },
+  {
+    "id": "C31",
+    "name": "Agentic AI Lecturer Risk Assessment",
+    "tier": "4-5",
+    "tags": [
+      "governance"
+    ],
+    "what": "The university considered using autonomous AI in teaching and assessment, creating risks around grading integrity, fairness, explainability, and public trust. The issue is not only whether the AI works, but whether the institution can justify and govern its judgments.",
+    "controls": [
+      "Human oversight",
+      "Quality testing",
+      "Ethics governance",
+      "Audit trails"
+    ],
+    "audit": "Verify whether there is a documented human appeal process, whether testing covers bias and accuracy over time, and whether the university can reconstruct why a specific decision was made.",
+    "insight": "The phrase about public trust taking years to build and minutes to lose captures why educational AI failures are governance failures, not just technical defects.",
+    "why": "This case extends AI risk beyond data exposure into institutional legitimacy. It is especially useful for exam answers that need to connect integrity failures to reputational and societal impact.",
+    "plain": "The question is not only whether the AI can teach or grade, but whether the university can defend and govern those decisions."
+  },
+  {
+    "id": "C32",
+    "name": "University Phishing Threat",
+    "tier": "4-5",
+    "tags": [
+      "human",
+      "technical"
+    ],
+    "what": "The university phishing scenario is a teaching exercise rather than a full incident narrative. It asks students to identify what a realistic phishing threat would target and which controls would reduce the chance and impact of compromise.",
+    "controls": [
+      "Email filtering (SPF/DKIM/DMARC)",
+      "MFA",
+      "Security awareness training"
+    ],
+    "audit": "Check SPF, DKIM, and DMARC configuration, review phishing simulation performance, and confirm whether MFA is enforced for the accounts that matter most.",
+    "insight": "The scenario is small, but it is useful because it forces structured control thinking instead of generic anti-phishing advice.",
+    "why": "The value of the case lies in categorization. It trains students to separate technical controls like email protection from organizational controls like awareness and procedures.",
+    "plain": "This case is about matching phishing risk with the right mix of technical defenses and human safeguards."
+  },
+  {
+    "id": "C33",
+    "name": "DDoS Attack on a Bank",
+    "tier": "4-5",
+    "tags": [
+      "technical",
+      "resilience"
+    ],
+    "what": "A bank faces a DDoS scenario where service continuity, customer trust, and coordination with third parties are all relevant. The case is less about breach mechanics and more about whether the bank can stay operational under stress.",
+    "controls": [
+      "DDoS mitigation services",
+      "Network monitoring",
+      "BCP for DDoS",
+      "Third-party coordination"
+    ],
+    "audit": "Review contracts and runbooks with ISPs or cloud providers, verify monitoring thresholds and escalation paths, and test whether the bank can prioritize critical services during sustained disruption.",
+    "insight": "The course expects students to pair technical controls with organizational coordination rather than treating them as separate worlds.",
+    "why": "Banks depend heavily on availability and external coordination. This makes DDoS a governance and resilience problem, not just a network problem.",
+    "plain": "For a bank, a DDoS attack is mainly a question of whether services stay available and coordinated under pressure."
+  },
+  {
+    "id": "C34",
+    "name": "Harvest Now, Decrypt Later",
+    "tier": "4-5",
+    "tags": [
+      "technical",
+      "governance"
+    ],
+    "what": "Adversaries may steal encrypted data today and hold it until future quantum capability makes decryption feasible. The damage therefore begins long before the actual decryption event occurs.",
+    "controls": [
+      "Cryptographic agility",
+      "Post-quantum transition planning",
+      "Key management"
+    ],
+    "audit": "Identify data with long confidentiality requirements, review crypto inventories and dependencies, and verify whether transition planning exists for algorithms that may become unsafe.",
+    "insight": "The scenario feels speculative, but the governance lesson is immediate: future-readiness matters when the protected value lasts longer than the current technology cycle.",
+    "why": "This case teaches long-horizon confidentiality thinking. Some information has value for years, so cryptography governance must account for future threats, not only current attack capability.",
+    "plain": "Even if stolen data is encrypted today, it can still become tomorrow's breach if attackers can decrypt it later."
+  },
+  {
+    "id": "C35",
+    "name": "AI-Enabled Attack Escalation",
+    "tier": "4-5",
+    "tags": [
+      "technical",
+      "human"
+    ],
+    "what": "Threat actors use AI to scale reconnaissance, tailor phishing, generate deepfakes, and adapt malware more quickly. AI lowers attacker cost and increases the speed and personalization of offensive activity.",
+    "controls": [
+      "AI governance",
+      "Detection capabilities for AI-generated attacks"
+    ],
+    "audit": "Assess whether detection logic, awareness programs, and incident plans account for deepfakes, highly tailored phishing, and more adaptive malicious content.",
+    "insight": "AI is dual use. Organizations can weaken themselves both by ignoring AI threats and by overtrusting opaque AI defenses.",
+    "why": "The case broadens the course's AI discussion beyond governance of internal AI use. It shows that the threat landscape itself changes when attackers gain automation and persuasion advantages.",
+    "plain": "AI makes attackers faster, cheaper, and more convincing, so old defenses may stop being good enough."
+  },
+  {
+    "id": "C36",
+    "name": "Mega IT Project Audit",
+    "tier": "4-5",
+    "tags": [
+      "audit",
+      "governance"
+    ],
+    "what": "A large \"platform for everything\" project attracted IT audit attention because its viability affected financial reporting and business decision-making. The audit focused on whether the project remained defensible as an investment, not just whether it was secure.",
+    "controls": [
+      "Change management oversight",
+      "IT project governance"
+    ],
+    "audit": "Review governance structures, milestone realism, evidence behind claimed progress, and how project risk feeds into financial and operational reporting.",
+    "insight": "IT audit here is not a side activity for technologists. It directly informs board-level and financial-accounting questions.",
+    "why": "This case expands the student's idea of what IT audit is for. In practice, IT audit can support valuation, going-concern judgments, and broader assurance objectives.",
+    "plain": "IT audit here is not just about security; it is about whether a huge project still makes business sense."
+  },
+  {
+    "id": "C37",
+    "name": "Multinational Cybersecurity Policy Audit",
+    "tier": "4-5",
+    "tags": [
+      "audit",
+      "governance",
+      "compliance"
+    ],
+    "what": "A multinational had a global cybersecurity policy, but implementation across operating companies was inconsistent and incomplete. The formal policy existed; the management challenge was turning it into reality at scale.",
+    "controls": [
+      "Policy enforcement across entities",
+      "Implementation monitoring"
+    ],
+    "audit": "Test whether each operating company implemented the required controls, whether deviations are reported upward, and whether central oversight distinguishes paper adoption from operational practice.",
+    "insight": "The classic governance gap is not policy creation but policy translation into behavior.",
+    "why": "This is a straightforward but important governance case. It teaches students that enterprise-wide control design fails when supervision and implementation tracking are weak.",
+    "plain": "A group-wide policy is not worth much if local companies do not actually implement it."
+  },
+  {
+    "id": "C38",
+    "name": "Dutch Railway Traffic Control Audit",
+    "tier": "4-5",
+    "tags": [
+      "audit",
+      "technical",
+      "resilience"
+    ],
+    "what": "Before deployment of new railway traffic control systems, audit work uncovered continuity and cybersecurity issues serious enough to delay rollout. The problem was caught before the system entered full operation.",
+    "controls": [
+      "Pre-deployment security assessment",
+      "Continuity controls"
+    ],
+    "audit": "Examine whether go-live criteria include cybersecurity and continuity requirements, whether testing evidence is complete, and whether unresolved findings can block deployment.",
+    "insight": "Sometimes the best cybersecurity outcome is a delayed launch. Preventing unsafe deployment is itself a success.",
+    "why": "This is a strong example of audit as a preventive control. It shows the value of independent review before mission-critical technology goes live.",
+    "plain": "The audit prevented a risky railway system from going live before continuity and security were good enough."
+  },
+  {
+    "id": "C39",
+    "name": "Japanese Electronics DC (AS/400 SPOF)",
+    "tier": "4-5",
+    "tags": [
+      "audit",
+      "technical",
+      "resilience"
+    ],
+    "what": "An IBM AS/400 in a European distribution center was identified as a single point of failure for a major electronics company. The finding triggered investment in redundancy and modernization.",
+    "controls": [
+      "Legacy technology risk management",
+      "Redundant infrastructure"
+    ],
+    "audit": "Map critical service dependencies, identify single points of failure, and test whether backup infrastructure is real, current, and capable of supporting operations.",
+    "insight": "The audit finding mattered because it changed investment decisions. Good assurance work does not only describe risk; it moves capital and priorities.",
+    "why": "The case is a compact lesson in continuity risk. Legacy platforms may work for years while quietly concentrating availability risk into one fragile dependency.",
+    "plain": "One old system had quietly become a single point of failure for a critical operation."
+  }
+];
+
+// ===== DATA: CONTROLS =====
+const controlsData = [
+  {
+    "name": "Patch Management",
+    "code": "PAT",
+    "desc": "Patch management is the working process for identifying, prioritizing, testing, and installing software fixes on time.",
+    "cases": [
+      {
+        "id": "C07",
+        "note": "Honour-system patching left Apache Struts unpatched for months; 147M records exposed."
+      },
+      {
+        "id": "C09",
+        "note": "EternalBlue patch available 2 months before WannaCry; not applied across NHS and others."
+      },
+      {
+        "id": "C10",
+        "note": "EternalBlue unpatched at Maersk; enabled NotPetya wiper propagation."
+      },
+      {
+        "id": "C24",
+        "note": "Unpatched database with RCE vulnerability exposed sensitive research data."
+      },
+      {
+        "id": "C15",
+        "note": "Cloud migration left patching gaps across multiple domains."
+      },
+      {
+        "id": "C16",
+        "note": "BrightMart had weak patching processes with no dedicated security staff."
+      }
+    ],
+    "simple": "This control makes sure known software fixes are actually installed before attackers can use the weakness.",
+    "why": "It matters because many major incidents in this course happened even though the fix already existed."
+  },
+  {
+    "name": "Multi-Factor Authentication (MFA)",
+    "code": "MFA",
+    "desc": "Multi-factor authentication adds another proof of identity, such as a phone prompt, token, or code, on top of the password.",
+    "cases": [
+      {
+        "id": "C04",
+        "note": "No MFA allowed social engineering to succeed with just stolen credentials."
+      },
+      {
+        "id": "C14",
+        "note": "MFA was present but helpdesk reset it for the attacker via social engineering."
+      },
+      {
+        "id": "C16",
+        "note": "BrightMart had no MFA in place for any systems."
+      },
+      {
+        "id": "C01",
+        "note": "Weak authentication allowed broader access once SolarWinds backdoor was active."
+      },
+      {
+        "id": "C11",
+        "note": "Weak credential management and no MFA on SaaS allowed infostealer-based entry at JLR."
+      },
+      {
+        "id": "C32",
+        "note": "Weak MFA enforcement left university vulnerable to phishing attacks."
+      }
+    ],
+    "simple": "MFA is meant to stop a stolen password from being enough on its own.",
+    "why": "It matters because passwords leak often, and one extra check can block a large share of account-takeover attacks."
+  },
+  {
+    "name": "Access Controls / RBAC / Least Privilege",
+    "code": "ACC",
+    "desc": "Access control, RBAC, and least privilege are about limiting who can see, change, or use systems and data.",
+    "cases": [
+      {
+        "id": "C18",
+        "note": "Multiple users had permanent privileged access to sensitive customer database."
+      },
+      {
+        "id": "C10",
+        "note": "Admin credentials on a normal machine enabled Mimikatz credential harvesting."
+      },
+      {
+        "id": "C15",
+        "note": "Least privilege not enforced during rapid cloud migration."
+      },
+      {
+        "id": "C14",
+        "note": "Lateral movement enabled by overly broad access after MFA compromise."
+      },
+      {
+        "id": "C27",
+        "note": "Legitimate access used for illegitimate data theft — least privilege not enforced."
+      },
+      {
+        "id": "C08",
+        "note": "HVAC vendor had access reaching POS systems at Target."
+      },
+      {
+        "id": "C30",
+        "note": "AI copilot access governance unclear — no one knew who could see what."
+      },
+      {
+        "id": "C05",
+        "note": "Weak access reviews allowed publicly accessible cloud storage to persist."
+      },
+      {
+        "id": "C02",
+        "note": "Weak access controls couldn’t prevent data export to personal cloud."
+      },
+      {
+        "id": "C23",
+        "note": "Document management system not classified from adversarial perspective."
+      },
+      {
+        "id": "C28",
+        "note": "Vendor employee had excessive database access enabling direct modification."
+      }
+    ],
+    "simple": "People and systems should only have the minimum access they truly need, and not for longer than needed.",
+    "why": "It matters because one stolen account or one bad decision becomes far more damaging when access is broad and permanent."
+  },
+  {
+    "name": "Monitoring / Logging / Detection",
+    "code": "MON",
+    "desc": "Monitoring, logging, and detection provide the visibility needed to notice unusual behavior, investigate it, and respond in time.",
+    "cases": [
+      {
+        "id": "C08",
+        "note": "Target had FireEye system but alerts were not investigated."
+      },
+      {
+        "id": "C01",
+        "note": "Anomalous software behavior from Orion updates went undetected for months."
+      },
+      {
+        "id": "C27",
+        "note": "Insider’s legitimate access made exfiltration invisible to monitoring."
+      },
+      {
+        "id": "C05",
+        "note": "No monitoring detected publicly accessible cloud buckets."
+      },
+      {
+        "id": "C14",
+        "note": "Living-off-the-land techniques evaded detection at MGM."
+      },
+      {
+        "id": "C10",
+        "note": "Weak monitoring at Maersk failed to detect lateral movement."
+      },
+      {
+        "id": "C09",
+        "note": "Weak monitoring delayed WannaCry detection and response."
+      },
+      {
+        "id": "C11",
+        "note": "Weak detection at JLR allowed lateral movement from SaaS to core IT."
+      },
+      {
+        "id": "C06",
+        "note": "Weak ecosystem monitoring missed combined phishing + cloud attack."
+      },
+      {
+        "id": "C26",
+        "note": "No continuous monitoring despite compliance certification."
+      },
+      {
+        "id": "C03",
+        "note": "Missing monitoring meant leadership had no visibility into actual security state."
+      },
+      {
+        "id": "C28",
+        "note": "No audit logging on database changes allowed vendor corruption to go undetected."
+      },
+      {
+        "id": "C30",
+        "note": "No monitoring of AI copilot data access at university."
+      },
+      {
+        "id": "C31",
+        "note": "No monitoring of autonomous AI teaching decisions."
+      },
+      {
+        "id": "C20",
+        "note": "Weak logging of AI copilot interactions at FinTrust."
+      },
+      {
+        "id": "C21",
+        "note": "Weak monitoring of agentic AI autonomous actions."
+      },
+      {
+        "id": "C15",
+        "note": "Missing monitoring across all cloud migration domains."
+      },
+      {
+        "id": "C16",
+        "note": "Weak monitoring at BrightMart with no dedicated security staff."
+      },
+      {
+        "id": "C33",
+        "note": "Weak network monitoring for DDoS detection at bank."
+      },
+      {
+        "id": "C35",
+        "note": "Weak detection capabilities against AI-generated attacks."
+      }
+    ],
+    "simple": "If the organization cannot see misuse, drift, or attack activity, it usually finds out too late.",
+    "why": "It matters because slow detection turns small control failures into long, expensive incidents."
+  },
+  {
+    "name": "Incident Response Plan",
+    "code": "IRP",
+    "desc": "Incident response planning covers detection, escalation, containment, communication, recovery, and follow-up during a cyber event.",
+    "cases": [
+      {
+        "id": "C13",
+        "note": "Quick shutdown prevented worse outcomes — positive example of fast IR."
+      },
+      {
+        "id": "C29",
+        "note": "SME completely unprepared for DDoS; paid ransom with no guarantee."
+      },
+      {
+        "id": "C09",
+        "note": "Weak incident response delayed containment of WannaCry worm."
+      },
+      {
+        "id": "C10",
+        "note": "Weak IR at Maersk; 76 terminals shuttered during recovery."
+      },
+      {
+        "id": "C11",
+        "note": "Weak containment at JLR; production halted over 1 month."
+      },
+      {
+        "id": "C22",
+        "note": "Missing incident classification led to wrong response for SQL injection."
+      },
+      {
+        "id": "C16",
+        "note": "BrightMart had no incident response capability."
+      },
+      {
+        "id": "C15",
+        "note": "No incident response plan for cloud migration failures."
+      },
+      {
+        "id": "C32",
+        "note": "Weak incident response for university phishing threat."
+      },
+      {
+        "id": "C33",
+        "note": "Weak incident response plan for bank DDoS scenario."
+      }
+    ],
+    "simple": "An incident response plan defines who does what when something goes wrong.",
+    "why": "It matters because the first hours of an incident often decide whether the damage stays limited or spreads."
+  },
+  {
+    "name": "Security Awareness Training",
+    "code": "SAT",
+    "desc": "Security awareness training prepares employees for phishing, social engineering, unsafe data handling, and other everyday cyber risks.",
+    "cases": [
+      {
+        "id": "C04",
+        "note": "Executive assistant lacked training to verify caller identity."
+      },
+      {
+        "id": "C02",
+        "note": "Sales manager didn’t understand risks of exporting PII to personal cloud."
+      },
+      {
+        "id": "C05",
+        "note": "Staff lacked cloud security awareness during migration."
+      },
+      {
+        "id": "C06",
+        "note": "Phishing component succeeded due to weak awareness."
+      },
+      {
+        "id": "C14",
+        "note": "Helpdesk staff lacked training to resist social engineering for MFA resets."
+      },
+      {
+        "id": "C32",
+        "note": "Missing security awareness training for university phishing threat."
+      },
+      {
+        "id": "C15",
+        "note": "Missing cloud security training during rapid migration."
+      },
+      {
+        "id": "C16",
+        "note": "BrightMart had no security awareness program."
+      },
+      {
+        "id": "C09",
+        "note": "Weak awareness contributed to slow patching response for WannaCry."
+      },
+      {
+        "id": "C11",
+        "note": "Weak phishing prevention awareness at JLR."
+      },
+      {
+        "id": "C20",
+        "note": "Weak staff education on AI output review at FinTrust."
+      },
+      {
+        "id": "C21",
+        "note": "Weak understanding of agentic AI risks at FinTrust."
+      },
+      {
+        "id": "C30",
+        "note": "Missing awareness of AI data access risks at university."
+      },
+      {
+        "id": "C35",
+        "note": "Weak awareness of AI-enhanced phishing and deepfake threats."
+      }
+    ],
+    "simple": "Training helps people recognize risky situations and make safer decisions under pressure.",
+    "why": "It matters because many course cases begin with normal human decisions, not with advanced technical exploits."
+  },
+  {
+    "name": "Vendor Risk Management",
+    "code": "VRM",
+    "desc": "Vendor risk management means assessing, contracting, monitoring, and reassessing third parties that can affect your security or resilience.",
+    "cases": [
+      {
+        "id": "C01",
+        "note": "No verification of SolarWinds build environment integrity."
+      },
+      {
+        "id": "C08",
+        "note": "Fazio Mechanical (HVAC vendor) given network access without risk assessment."
+      },
+      {
+        "id": "C10",
+        "note": "ME.Doc supply chain compromised; no vendor software integrity checks."
+      },
+      {
+        "id": "C28",
+        "note": "Vendor IT employee bypassed controls; weak vendor access management."
+      },
+      {
+        "id": "C19",
+        "note": "Missing SOC reports from Alight/SAP SaaS vendor."
+      },
+      {
+        "id": "C11",
+        "note": "Weak SaaS vendor security at JLR."
+      },
+      {
+        "id": "C15",
+        "note": "Missing contractual security requirements for cloud vendors."
+      },
+      {
+        "id": "C16",
+        "note": "Weak vendor oversight at BrightMart."
+      },
+      {
+        "id": "C30",
+        "note": "Weak vendor accountability for AI copilot data access."
+      },
+      {
+        "id": "C21",
+        "note": "Weak cross-system access governance for agentic AI vendor."
+      },
+      {
+        "id": "C31",
+        "note": "Weak vendor oversight for autonomous AI teaching system."
+      },
+      {
+        "id": "C33",
+        "note": "Weak third-party coordination for DDoS response at bank."
+      }
+    ],
+    "simple": "A weak vendor can quickly become your problem if you trust it with data, systems, or access.",
+    "why": "It matters because organizations often inherit risk through suppliers, SaaS platforms, and outsourced operations."
+  },
+  {
+    "name": "Change Management",
+    "code": "CHM",
+    "desc": "Change management is the formal process for proposing, testing, approving, implementing, and documenting changes to systems.",
+    "cases": [
+      {
+        "id": "C12",
+        "note": "CrowdStrike pushed faulty update without adequate testing; 8.5M systems crashed."
+      },
+      {
+        "id": "C28",
+        "note": "Vendor bypassed change management to directly modify database."
+      },
+      {
+        "id": "C07",
+        "note": "Weak change management allowed honour-system patching at Equifax."
+      },
+      {
+        "id": "C01",
+        "note": "Weak change oversight for SolarWinds Orion update deployment."
+      },
+      {
+        "id": "C15",
+        "note": "Missing change management during rapid cloud migration."
+      },
+      {
+        "id": "C36",
+        "note": "Weak change management oversight in 400M EUR IT project."
+      }
+    ],
+    "simple": "Changes need review and control, because rushed or unchecked changes can cause outages or security holes.",
+    "why": "It matters because not every major failure comes from an attacker; some come from our own changes."
+  },
+  {
+    "name": "Network Segmentation",
+    "code": "NSG",
+    "desc": "Network segmentation divides systems into separate zones so that access, movement, and damage can be limited.",
+    "cases": [
+      {
+        "id": "C08",
+        "note": "HVAC vendor on same network as POS systems at Target."
+      },
+      {
+        "id": "C09",
+        "note": "No segmentation allowed WannaCry worm-like propagation across networks."
+      },
+      {
+        "id": "C10",
+        "note": "Flat network at Maersk enabled NotPetya to spread to 76 terminals."
+      },
+      {
+        "id": "C11",
+        "note": "No segmentation between IT and OT at JLR; lateral movement to core IT."
+      },
+      {
+        "id": "C17",
+        "note": "No segmentation between public webshop and customer data."
+      },
+      {
+        "id": "C14",
+        "note": "Weak segmentation enabled lateral movement at MGM."
+      },
+      {
+        "id": "C15",
+        "note": "Weak segmentation during cloud migration."
+      },
+      {
+        "id": "C33",
+        "note": "Weak network segmentation for bank DDoS containment."
+      }
+    ],
+    "simple": "Segmentation keeps one compromised area from automatically spreading into everything else.",
+    "why": "It matters because flat environments make ransomware, lateral movement, and third-party compromise much harder to contain."
+  },
+  {
+    "name": "Encryption / Key Management",
+    "code": "ENC",
+    "desc": "Encryption and key management protect confidentiality by scrambling data at rest and in transit and controlling who can unlock it.",
+    "cases": [
+      {
+        "id": "C02",
+        "note": "No encryption on exported PII data in personal cloud account."
+      },
+      {
+        "id": "C34",
+        "note": "Harvest now, decrypt later: current encryption vulnerable to future quantum computers."
+      }
+    ],
+    "simple": "Encryption keeps stolen data unreadable, but only if the keys are protected and managed properly.",
+    "why": "It matters because losing data is bad, but losing readable data is much worse."
+  },
+  {
+    "name": "Backup & Recovery",
+    "code": "BCK",
+    "desc": "Backup and recovery covers creating safe copies of data and systems and regularly proving that recovery really works.",
+    "cases": [
+      {
+        "id": "C09",
+        "note": "No offline backups meant WannaCry recovery was extremely difficult."
+      },
+      {
+        "id": "C10",
+        "note": "Weak backup procedures at Maersk; recovery required heroic efforts."
+      },
+      {
+        "id": "C19",
+        "note": "Weak data migration backup controls during HR SaaS transition."
+      },
+      {
+        "id": "C15",
+        "note": "Unclear backup responsibilities during cloud migration."
+      },
+      {
+        "id": "C16",
+        "note": "Weak backup processes at BrightMart."
+      }
+    ],
+    "simple": "Backups are only useful if they are current, isolated, and actually restorable.",
+    "why": "It matters because resilience depends on being able to restore operations, not just on saying that backups exist."
+  },
+  {
+    "name": "Configuration Management",
+    "code": "CFG",
+    "desc": "Configuration management sets secure baselines, controls changes to settings, and helps detect unsafe defaults or drift over time.",
+    "cases": [
+      {
+        "id": "C05",
+        "note": "Default cloud storage settings left buckets publicly accessible."
+      },
+      {
+        "id": "C06",
+        "note": "Cloud misconfiguration was one of two simultaneous attack vectors."
+      },
+      {
+        "id": "C14",
+        "note": "Weak configuration management enabled living-off-the-land at MGM."
+      },
+      {
+        "id": "C15",
+        "note": "Missing configuration baselines during cloud migration."
+      }
+    ],
+    "simple": "Secure settings must be defined and kept in place, otherwise safe systems drift into unsafe ones.",
+    "why": "It matters because many breaches come from ordinary misconfiguration rather than from sophisticated exploitation."
+  },
+  {
+    "name": "Governance / Oversight / Risk Ownership",
+    "code": "GOV",
+    "desc": "Governance and oversight define who owns cyber risk, who decides priorities, and how leadership sees whether controls are working.",
+    "cases": [
+      {
+        "id": "C03",
+        "note": "ISO-certified but governance was a formality; leadership had no real visibility."
+      },
+      {
+        "id": "C07",
+        "note": "Audit findings ignored for 2 years; governance failed, not technology."
+      },
+      {
+        "id": "C08",
+        "note": "$1.6M security investment wasted without governance to act on alerts."
+      },
+      {
+        "id": "C25",
+        "note": "“Is it secure?” is the wrong question; residual risk tolerance is the right one."
+      },
+      {
+        "id": "C26",
+        "note": "Optimized for compliance, not resilience; governance mechanisms were ineffective."
+      },
+      {
+        "id": "C06",
+        "note": "No holistic governance for cross-domain/cascading risk scenarios."
+      },
+      {
+        "id": "C02",
+        "note": "Missing data governance allowed PII export without oversight."
+      },
+      {
+        "id": "C05",
+        "note": "Weak cloud governance during migration."
+      },
+      {
+        "id": "C14",
+        "note": "Weak governance over identity and access management at MGM."
+      },
+      {
+        "id": "C09",
+        "note": "Weak governance; organizational failure to enforce patching."
+      },
+      {
+        "id": "C10",
+        "note": "Weak governance over legacy systems and privileged access."
+      },
+      {
+        "id": "C11",
+        "note": "Weak governance over SaaS and credential management."
+      },
+      {
+        "id": "C12",
+        "note": "Weak governance over security tool update process."
+      },
+      {
+        "id": "C15",
+        "note": "Missing accountability structures for cloud migration."
+      },
+      {
+        "id": "C16",
+        "note": "Weak governance with no dedicated security function."
+      },
+      {
+        "id": "C17",
+        "note": "Risk ratings not updated when business context changed."
+      },
+      {
+        "id": "C18",
+        "note": "Weak governance over privileged database access."
+      },
+      {
+        "id": "C19",
+        "note": "Weak governance over SaaS vendor transition."
+      },
+      {
+        "id": "C20",
+        "note": "Weak governance over AI copilot data access."
+      },
+      {
+        "id": "C21",
+        "note": "Weak governance over agentic AI autonomous actions."
+      },
+      {
+        "id": "C22",
+        "note": "Weak governance led to incorrect incident classification."
+      },
+      {
+        "id": "C23",
+        "note": "Weak governance: no adversarial perspective in asset classification."
+      },
+      {
+        "id": "C27",
+        "note": "Weak governance over insider threat monitoring."
+      },
+      {
+        "id": "C28",
+        "note": "Weak governance over vendor access and separation of duties."
+      },
+      {
+        "id": "C29",
+        "note": "Missing governance and preparation for DDoS scenario."
+      },
+      {
+        "id": "C30",
+        "note": "Missing governance over AI copilot adoption at university."
+      },
+      {
+        "id": "C31",
+        "note": "Missing governance over autonomous AI teaching."
+      },
+      {
+        "id": "C33",
+        "note": "Weak governance for DDoS coordination at bank."
+      },
+      {
+        "id": "C34",
+        "note": "Weak governance: no forward-looking crypto transition planning."
+      },
+      {
+        "id": "C35",
+        "note": "Weak governance over AI defensive systems."
+      },
+      {
+        "id": "C36",
+        "note": "Weak project governance for 400M EUR IT initiative."
+      },
+      {
+        "id": "C37",
+        "note": "Global policy only partially implemented across subsidiaries."
+      },
+      {
+        "id": "C38",
+        "note": "Weak governance found by audit before railway deployment."
+      },
+      {
+        "id": "C39",
+        "note": "Weak governance over legacy AS/400 single point of failure."
+      }
+    ],
+    "simple": "Cyber risk needs clear ownership at leadership level, or important issues stay unresolved.",
+    "why": "It matters because most of these cases are really governance failures wearing a technical disguise."
+  },
+  {
+    "name": "Policy Enforcement",
+    "code": "POL",
+    "desc": "Policy enforcement is the discipline of turning written rules into real behavior through controls, monitoring, accountability, and follow-up.",
+    "cases": [
+      {
+        "id": "C03",
+        "note": "Policies existed but enforcement was weak; ISO certification didn’t help."
+      },
+      {
+        "id": "C07",
+        "note": "Honour-system patching: policy existed but was not enforced."
+      },
+      {
+        "id": "C04",
+        "note": "No policy for verifying credential requests."
+      },
+      {
+        "id": "C02",
+        "note": "No policy covering personal cloud usage for business data."
+      },
+      {
+        "id": "C14",
+        "note": "Weak policy for helpdesk MFA reset procedures."
+      },
+      {
+        "id": "C26",
+        "note": "Policies on paper but ineffective in practice."
+      },
+      {
+        "id": "C37",
+        "note": "Global policy only partially implemented across operating companies."
+      },
+      {
+        "id": "C09",
+        "note": "Weak enforcement of patching policies."
+      },
+      {
+        "id": "C01",
+        "note": "Weak vendor security policy enforcement."
+      },
+      {
+        "id": "C15",
+        "note": "Missing policy enforcement for cloud migration controls."
+      },
+      {
+        "id": "C16",
+        "note": "Weak policy enforcement at BrightMart."
+      },
+      {
+        "id": "C18",
+        "note": "Weak policy on privileged access reviews."
+      },
+      {
+        "id": "C19",
+        "note": "Weak policy enforcement around SaaS vendor requirements."
+      },
+      {
+        "id": "C25",
+        "note": "Missing risk-based policy communication to leadership."
+      },
+      {
+        "id": "C28",
+        "note": "Missing enforcement of four-eyes principle."
+      },
+      {
+        "id": "C30",
+        "note": "Missing policy enforcement for AI data access."
+      },
+      {
+        "id": "C31",
+        "note": "Missing policy enforcement for AI teaching decisions."
+      }
+    ],
+    "simple": "A policy only helps when people follow it and management checks that they do.",
+    "why": "It matters because paper compliance creates false comfort if operating practice does not match the policy set."
+  },
+  {
+    "name": "Vulnerability Scanning",
+    "code": "VUL",
+    "desc": "Vulnerability scanning finds known weaknesses in systems and applications so they can be assessed and remediated before abuse occurs.",
+    "cases": [
+      {
+        "id": "C07",
+        "note": "Equifax had no systematic vulnerability scanning; backlogs were known."
+      },
+      {
+        "id": "C24",
+        "note": "Unpatched database RCE could have been found with vulnerability scanning."
+      },
+      {
+        "id": "C01",
+        "note": "Weak vulnerability assessment of vendor software behavior."
+      },
+      {
+        "id": "C05",
+        "note": "No automated config/vulnerability checks for cloud resources."
+      },
+      {
+        "id": "C15",
+        "note": "Missing vulnerability scanning during cloud migration."
+      },
+      {
+        "id": "C16",
+        "note": "Weak vulnerability assessment processes at BrightMart."
+      },
+      {
+        "id": "C38",
+        "note": "Vulnerability assessment found issues before railway system deployment."
+      }
+    ],
+    "simple": "You cannot fix weaknesses consistently if you do not know where they are.",
+    "why": "It matters because attackers and auditors both look for issues that the organization failed to identify itself."
+  },
+  {
+    "name": "Data Loss Prevention (DLP)",
+    "code": "DLP",
+    "desc": "Data loss prevention uses policy, monitoring, and technical controls to detect or block unauthorized data movement and exposure.",
+    "cases": [
+      {
+        "id": "C02",
+        "note": "No DLP prevented PII export to personal cloud account."
+      },
+      {
+        "id": "C27",
+        "note": "No DLP to detect insider data exfiltration."
+      },
+      {
+        "id": "C19",
+        "note": "Weak DLP/data classification for HR data in SaaS migration."
+      },
+      {
+        "id": "C20",
+        "note": "Weak data protection around AI copilot at FinTrust."
+      },
+      {
+        "id": "C21",
+        "note": "Weak data protection around agentic AI at FinTrust."
+      },
+      {
+        "id": "C30",
+        "note": "Weak data classification for AI copilot access at university."
+      }
+    ],
+    "simple": "DLP is about stopping sensitive data from quietly leaving the organization in the wrong place or format.",
+    "why": "It matters because accidental leakage and insider misuse are common, especially when data can be copied easily."
+  },
+  {
+    "name": "Business Continuity Planning",
+    "code": "BCP",
+    "desc": "Business continuity planning prepares the organization to continue critical operations during outages, attacks, and major disruptions.",
+    "cases": [
+      {
+        "id": "C09",
+        "note": "No BCP for ransomware scenarios; NHS surgeries cancelled."
+      },
+      {
+        "id": "C12",
+        "note": "No BCP for tool-induced outages; airlines and hospitals disrupted."
+      },
+      {
+        "id": "C29",
+        "note": "No BCP for DDoS; SME paid ransom in desperation."
+      },
+      {
+        "id": "C10",
+        "note": "Weak BCP; Maersk recovery took weeks."
+      },
+      {
+        "id": "C11",
+        "note": "Weak BCP; JLR production halted over a month."
+      },
+      {
+        "id": "C17",
+        "note": "No BCP for webshop DDoS scenario."
+      },
+      {
+        "id": "C33",
+        "note": "Weak BCP for bank DDoS scenario."
+      },
+      {
+        "id": "C38",
+        "note": "Continuity issues found before railway deployment."
+      },
+      {
+        "id": "C39",
+        "note": "AS/400 SPOF created availability risk; no redundancy."
+      },
+      {
+        "id": "C15",
+        "note": "Weak BCP during cloud migration."
+      },
+      {
+        "id": "C16",
+        "note": "Weak BCP at BrightMart."
+      },
+      {
+        "id": "C19",
+        "note": "Weak fallback planning for HR SaaS cutover."
+      }
+    ],
+    "simple": "BCP is the plan for keeping the business running when important systems are disrupted.",
+    "why": "It matters because availability failures can harm the business even when confidentiality was never the main issue."
+  },
+  {
+    "name": "Audit / Assurance",
+    "code": "AUD",
+    "desc": "Audit and assurance test control design, operating effectiveness, remediation follow-up, and whether management really understands the remaining risk.",
+    "cases": [
+      {
+        "id": "C07",
+        "note": "Internal audit found problems 2 years before Equifax breach; not remediated."
+      },
+      {
+        "id": "C03",
+        "note": "Audit process was a formality; did not test whether controls operated."
+      },
+      {
+        "id": "C26",
+        "note": "Audit focused on compliance, not on whether controls actually worked."
+      },
+      {
+        "id": "C08",
+        "note": "Weak audit of vendor access and risk assessment at Target."
+      },
+      {
+        "id": "C38",
+        "note": "Audit as preventive control: found issues before railway deployment."
+      },
+      {
+        "id": "C39",
+        "note": "Audit identified AS/400 SPOF and drove infrastructure investment."
+      },
+      {
+        "id": "C36",
+        "note": "IT audit served financial audit purposes for 400M EUR project."
+      },
+      {
+        "id": "C37",
+        "note": "Audit found policy implementation gap across subsidiaries."
+      },
+      {
+        "id": "C19",
+        "note": "Weak vendor assurance (missing SOC reports) in HR SaaS audit."
+      },
+      {
+        "id": "C12",
+        "note": "Missing audit of change management for critical security tool updates."
+      },
+      {
+        "id": "C25",
+        "note": "Missing audit/assurance of risk communication to leadership."
+      },
+      {
+        "id": "C27",
+        "note": "Missing audit of access monitoring and DLP."
+      },
+      {
+        "id": "C28",
+        "note": "Missing audit of four-eyes principle enforcement."
+      },
+      {
+        "id": "C05",
+        "note": "Missing audit of cloud resource configurations."
+      },
+      {
+        "id": "C02",
+        "note": "Missing audit of data handling and cloud usage."
+      },
+      {
+        "id": "C06",
+        "note": "Missing audit of cross-domain threat scenarios."
+      },
+      {
+        "id": "C20",
+        "note": "Weak audit of AI copilot interactions."
+      },
+      {
+        "id": "C21",
+        "note": "Weak audit of agentic AI autonomous actions."
+      },
+      {
+        "id": "C10",
+        "note": "Weak audit of legacy systems and network segmentation."
+      },
+      {
+        "id": "C15",
+        "note": "Missing audit processes during cloud migration."
+      },
+      {
+        "id": "C16",
+        "note": "Missing audit/assurance at BrightMart."
+      },
+      {
+        "id": "C18",
+        "note": "Missing audit of privileged access to sensitive databases."
+      },
+      {
+        "id": "C30",
+        "note": "Missing audit of AI copilot data boundaries at university."
+      },
+      {
+        "id": "C31",
+        "note": "Missing audit of AI teaching decision quality."
+      }
+    ],
+    "simple": "Audit gives an independent view on whether the controls really work in practice.",
+    "why": "It matters because organizations often miss or ignore weaknesses until someone independent checks them properly."
+  },
+  {
+    "name": "Separation of Duties",
+    "code": "SEP",
+    "desc": "Separation of duties, including the four-eyes principle, divides critical actions across multiple people to reduce error, fraud, and abuse.",
+    "cases": [
+      {
+        "id": "C28",
+        "note": "Vendor employee bypassed four-eyes principle; directly modified customer database."
+      },
+      {
+        "id": "C18",
+        "note": "No separation of duties for privileged database access."
+      },
+      {
+        "id": "C04",
+        "note": "No verification/separation for credential handover requests."
+      }
+    ],
+    "simple": "Important actions should not be under one person's unchecked control.",
+    "why": "It matters because trust alone is not a control when privileged actions can change critical data or systems."
+  }
+];
+
+// ===== TAG COLORS =====
+const tagColors = {
+  governance: "#6366f1",
+  technical: "#0ea5e9",
+  human: "#f59e0b",
+  cloud: "#8b5cf6",
+  "supply-chain": "#ef4444",
+  audit: "#10b981",
+  compliance: "#ec4899",
+  resilience: "#14b8a6",
+  insider: "#f97316"
+};
+
+const examColors = {
+  "Mock 2026": "#f43f5e",
+  "Exam A": "#f97316",
+  "Exam B": "#8b5cf6"
+};
+
+const domainTags = ["governance","technical","human","cloud","supply-chain","audit","compliance","resilience"];
+const tierOptions = ["1-2","3","4-5"];
+const examOptions = ["Mock 2026","Exam A","Exam B"];
+
+// ===== STATE =====
+let mode = "home"; // "home", "case", "control", "exam", "nist"
+let currentIndex = 0;
+let flipped = false;
+let activeDomains = new Set();
+let activeTiers = new Set();
+let activeExams = new Set();
+let bookmarkFilter = false;
+let bookmarks = JSON.parse(localStorage.getItem("cyberFlashBookmarks") || "{}");
+let filteredCards = [];
+let darkMode = localStorage.getItem("cyberFlashDark") === "true";
+let viewMode = localStorage.getItem("cyberFlashView") === "grid" ? "grid" : "single";
+
+// ===== INIT =====
+function init() {
+  if (darkMode) document.body.classList.add("dark");
+  buildFilterButtons();
+  syncViewButtons();
+  setMode(mode);
+}
+
+// ===== FILTER BUTTONS =====
+function buildFilterButtons() {
+  const domainContainer = document.getElementById("domainFilters");
+  domainTags.forEach(tag => {
+    const btn = document.createElement("button");
+    btn.className = "tag-btn";
+    btn.textContent = tag;
+    btn.style.borderColor = tagColors[tag];
+    btn.style.color = tagColors[tag];
+    btn.dataset.tag = tag;
+    btn.onclick = () => toggleDomain(tag, btn);
+    domainContainer.appendChild(btn);
+  });
+
+  const tierContainer = document.getElementById("tierFilters");
+  tierOptions.forEach(t => {
+    const btn = document.createElement("button");
+    btn.className = "tag-btn";
+    const label = t === "1-2" ? "Tier 1\u20132 (Exam Focus)" : t === "3" ? "Tier 3" : "Tier 4\u20135";
+    btn.textContent = label;
+    const color = t === "1-2" ? "#6366f1" : t === "3" ? "#0ea5e9" : "#9ca3af";
+    btn.style.borderColor = color;
+    btn.style.color = color;
+    btn.dataset.tier = t;
+    btn.onclick = () => toggleTier(t, btn, color);
+    tierContainer.appendChild(btn);
+  });
+
+  const examContainer = document.getElementById("examFilters");
+  examOptions.forEach(ex => {
+    const btn = document.createElement("button");
+    btn.className = "tag-btn";
+    btn.textContent = ex;
+    const color = examColors[ex];
+    btn.style.borderColor = color;
+    btn.style.color = color;
+    btn.dataset.exam = ex;
+    btn.onclick = () => toggleExamFilter(ex, btn, color);
+    examContainer.appendChild(btn);
+  });
+}
+
+function toggleDomain(tag, btn) {
+  if (activeDomains.has(tag)) {
+    activeDomains.delete(tag);
+    btn.classList.remove("active");
+    btn.style.background = "transparent";
+    btn.style.color = tagColors[tag];
+  } else {
+    activeDomains.add(tag);
+    btn.classList.add("active");
+    btn.style.background = tagColors[tag];
+    btn.style.color = "#fff";
+  }
+  currentIndex = 0;
+  flipped = false;
+  updateFilteredCards();
+  renderCard();
+}
+
+function toggleTier(t, btn, color) {
+  if (activeTiers.has(t)) {
+    activeTiers.delete(t);
+    btn.classList.remove("active");
+    btn.style.background = "transparent";
+    btn.style.color = color;
+  } else {
+    activeTiers.add(t);
+    btn.classList.add("active");
+    btn.style.background = color;
+    btn.style.color = "#fff";
+  }
+  currentIndex = 0;
+  flipped = false;
+  updateFilteredCards();
+  renderCard();
+}
+
+function toggleExamFilter(ex, btn, color) {
+  if (activeExams.has(ex)) {
+    activeExams.delete(ex);
+    btn.classList.remove("active");
+    btn.style.background = "transparent";
+    btn.style.color = color;
+  } else {
+    activeExams.add(ex);
+    btn.classList.add("active");
+    btn.style.background = color;
+    btn.style.color = "#fff";
+  }
+  currentIndex = 0;
+  flipped = false;
+  updateFilteredCards();
+  renderCard();
+}
+
+// ===== FILTER LOGIC =====
+function updateFilteredCards() {
+  if (mode === "case") {
+    filteredCards = cases.filter(c => {
+      if (activeDomains.size > 0 && !c.tags.some(t => activeDomains.has(t))) return false;
+      if (activeTiers.size > 0 && !activeTiers.has(c.tier)) return false;
+      if (bookmarkFilter && !bookmarks["case_" + c.id]) return false;
+      return true;
+    });
+  } else if (mode === "control") {
+    filteredCards = controlsData.filter(c => {
+      if (bookmarkFilter && !bookmarks["ctrl_" + c.code]) return false;
+      if (activeDomains.size > 0 || activeTiers.size > 0) {
+        const hasCaseMatch = c.cases.some(cc => {
+          const caseObj = cases.find(x => x.id === cc.id);
+          if (!caseObj) return false;
+          const domainOk = activeDomains.size === 0 || caseObj.tags.some(t => activeDomains.has(t));
+          const tierOk = activeTiers.size === 0 || activeTiers.has(caseObj.tier);
+          return domainOk && tierOk;
+        });
+        if (!hasCaseMatch) return false;
+      }
+      return true;
+    });
+  } else if (mode === "exam") {
+    filteredCards = examQuestions.filter(q => {
+      if (activeExams.size > 0 && !activeExams.has(q.exam)) return false;
+      if (activeDomains.size > 0 && !q.tags.some(t => activeDomains.has(t))) return false;
+      if (bookmarkFilter && !bookmarks["exam_" + q.id]) return false;
+      return true;
+    });
+  }
+  if (currentIndex >= filteredCards.length) currentIndex = Math.max(0, filteredCards.length - 1);
+}
+
+function syncViewButtons() {
+  document.getElementById("viewSingleBtn").classList.toggle("active", viewMode === "single");
+  document.getElementById("viewGridBtn").classList.toggle("active", viewMode === "grid");
+}
+
+function setViewMode(nextView) {
+  if (mode === "nist") return;
+  viewMode = nextView;
+  flipped = false;
+  localStorage.setItem("cyberFlashView", viewMode);
+  syncViewButtons();
+  renderCard();
+}
+
+function getModeDisplayLabel() {
+  return {
+    home: "Home",
+    case: "Cases",
+    control: "Controls",
+    exam: "Exam Practice",
+    nist: "NIST CSF"
+  }[mode] || "Cards";
+}
+
+function getGridCountLabel(total) {
+  const labels = {
+    case: ["card", "cards"],
+    control: ["control", "controls"],
+    exam: ["question", "questions"]
+  }[mode] || ["item", "items"];
+  return total === 1 ? labels[0] : labels[1];
+}
+
+function getCasePrimaryTag(caseObj) {
+  return caseObj.tags[0] || "governance";
+}
+
+function compareCaseGridItems(a, b) {
+  const tierOrder = { "1-2": 0, "3": 1, "4-5": 2 };
+  const categoryOrder = domainTags.reduce((acc, tag, index) => {
+    acc[tag] = index;
+    return acc;
+  }, {});
+  const tierDiff = (tierOrder[a.card.tier] ?? 99) - (tierOrder[b.card.tier] ?? 99);
+  if (tierDiff !== 0) return tierDiff;
+
+  const aTag = getCasePrimaryTag(a.card);
+  const bTag = getCasePrimaryTag(b.card);
+  const categoryDiff = (categoryOrder[aTag] ?? 99) - (categoryOrder[bTag] ?? 99);
+  if (categoryDiff !== 0) return categoryDiff;
+
+  return a.card.id.localeCompare(b.card.id, undefined, { numeric: true });
+}
+
+function openGridCard(index) {
+  currentIndex = index;
+  flipped = false;
+  setViewMode("single");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderGridView() {
+  const container = document.getElementById("cardContainer");
+  const grid = document.getElementById("gridContainer");
+  const empty = document.getElementById("emptyState");
+  const nav = document.getElementById("navButtons");
+  const keyboardHint = document.getElementById("keyboardHint");
+  const total = filteredCards.length;
+
+  container.style.display = "none";
+  grid.style.display = "grid";
+  nav.style.display = "none";
+  keyboardHint.style.display = "none";
+  empty.style.display = "none";
+
+  document.getElementById("progressText").textContent = `${total} ${getGridCountLabel(total)}`;
+  document.getElementById("progressFill").style.width = "100%";
+  document.getElementById("modeLabel").textContent = `${getModeDisplayLabel()} Grid`;
+
+  if (mode === "case") {
+    const sortedItems = filteredCards.map((card, index) => ({ card, index })).sort(compareCaseGridItems);
+    const tierLabels = { "1-2": "Tier 1-2", "3": "Tier 3", "4-5": "Tier 4-5" };
+
+    grid.innerHTML = tierOptions.map(tier => {
+      const tierItems = sortedItems.filter(item => item.card.tier === tier);
+      if (!tierItems.length) return "";
+      return `
+        <div class="grid-section-title">${tierLabels[tier]} <span class="grid-chip">${tierItems.length}</span></div>
+        ${tierItems.map(({ card: c, index }) => {
+          const primaryTag = getCasePrimaryTag(c);
+          const edgeColor = tagColors[primaryTag] || "#6366f1";
+          const tierClass = c.tier === "1-2" ? "tier-1-2" : c.tier === "3" ? "tier-3" : "tier-4-5";
+          const isStarred = bookmarks["case_" + c.id];
+          return `
+            <button class="grid-card" style="border-left-color:${edgeColor};" onclick="openGridCard(${index})">
+              <div class="grid-card-head">
+                <span class="grid-card-id">${c.id}</span>
+                ${isStarred ? '<span class="grid-card-bookmark">&#9733;</span>' : ""}
+              </div>
+              <div class="grid-card-title">${c.name}</div>
+              <div class="grid-card-subtitle">${c.plain || c.why}</div>
+              <div class="grid-card-tags">
+                <span class="grid-chip primary" style="background:${edgeColor};">${primaryTag}</span>
+                <span class="card-tag ${tierClass}" style="font-size:0.625rem;">${tierLabels[tier]}</span>
+              </div>
+            </button>
+          `;
+        }).join("")}
+      `;
+    }).join("");
+    return;
+  }
+
+  if (mode === "control") {
+    grid.innerHTML = filteredCards.map((ctrl, index) => {
+      const isStarred = bookmarks["ctrl_" + ctrl.code];
+      return `
+        <button class="grid-card" style="border-left-color:#6366f1;" onclick="openGridCard(${index})">
+          <div class="grid-card-head">
+            <span class="grid-card-id">${ctrl.code}</span>
+            ${isStarred ? '<span class="grid-card-bookmark">&#9733;</span>' : ""}
+          </div>
+          <div class="grid-card-title">${ctrl.name}</div>
+          <div class="grid-card-subtitle">${ctrl.simple || ctrl.why || ctrl.desc}</div>
+          <div class="grid-card-tags">
+            <span class="grid-chip primary" style="background:#6366f1;">control</span>
+            <span class="grid-chip">${ctrl.cases.length} linked case${ctrl.cases.length !== 1 ? "s" : ""}</span>
+          </div>
+        </button>
+      `;
+    }).join("");
+    return;
+  }
+
+  grid.innerHTML = filteredCards.map((q, index) => {
+    const edgeColor = examColors[q.exam] || "#f43f5e";
+    const examClass = q.exam === "Mock 2026" ? "mock-2026" : q.exam === "Exam A" ? "exam-a" : "exam-b";
+    const isStarred = bookmarks["exam_" + q.id];
+    return `
+      <button class="grid-card" style="border-left-color:${edgeColor};" onclick="openGridCard(${index})">
+        <div class="grid-card-head">
+          <span class="grid-card-id">${q.num}</span>
+          ${isStarred ? '<span class="grid-card-bookmark">&#9733;</span>' : ""}
+        </div>
+        <div class="grid-card-title">${q.title}</div>
+        <div class="grid-card-subtitle">${q.exam}</div>
+        <div class="grid-card-tags">
+          <span class="exam-badge ${examClass}">${q.exam}</span>
+          <span class="grid-chip">open to answer</span>
+        </div>
+      </button>
+    `;
+  }).join("");
+}
+
+// ===== RENDER =====
+function renderCard() {
+  const container = document.getElementById("cardContainer");
+  const grid = document.getElementById("gridContainer");
+  const empty = document.getElementById("emptyState");
+  const nav = document.getElementById("navButtons");
+  const flipper = document.getElementById("cardFlipper");
+  const keyboardHint = document.getElementById("keyboardHint");
+
+  if (filteredCards.length === 0) {
+    container.style.display = "none";
+    grid.style.display = "none";
+    nav.style.display = "none";
+    keyboardHint.style.display = "none";
+    empty.style.display = "block";
+    document.getElementById("progressText").textContent = "0 / 0";
+    document.getElementById("progressFill").style.width = "0%";
+    document.getElementById("modeLabel").textContent = getModeDisplayLabel();
+    return;
+  }
+
+  if (viewMode === "grid") {
+    renderGridView();
+    return;
+  }
+
+  container.style.display = "block";
+  grid.style.display = "none";
+  nav.style.display = "flex";
+  keyboardHint.style.display = "block";
+  empty.style.display = "none";
+
+  flipper.classList.toggle("flipped", flipped);
+
+  const total = filteredCards.length;
+  document.getElementById("progressText").textContent = (currentIndex + 1) + " / " + total;
+  document.getElementById("progressFill").style.width = ((currentIndex + 1) / total * 100) + "%";
+  document.getElementById("modeLabel").textContent = getModeDisplayLabel();
+
+  document.getElementById("prevBtn").disabled = currentIndex === 0;
+  document.getElementById("nextBtn").disabled = currentIndex === total - 1;
+
+  if (mode === "case") {
+    renderCaseCard(filteredCards[currentIndex]);
+  } else if (mode === "control") {
+    renderControlCard(filteredCards[currentIndex]);
+  } else {
+    renderExamCard(filteredCards[currentIndex]);
+  }
+}
+
+function renderCaseCard(c) {
+  const bk = bookmarks["case_" + c.id] ? "starred" : "";
+  const tierClass = c.tier === "1-2" ? "tier-1-2" : c.tier === "3" ? "tier-3" : "tier-4-5";
+  const tierLabel = c.tier === "1-2" ? "Tier 1\u20132" : c.tier === "3" ? "Tier 3" : "Tier 4\u20135";
+
+  document.getElementById("cardFront").innerHTML = `
+    <div class="card-header">
+      <span class="card-id">${c.id} <span class="card-tag ${tierClass}" style="margin-left:6px;font-size:0.625rem;">${tierLabel}</span></span>
+      <button class="star-btn ${bk}" onclick="event.stopPropagation(); toggleStar('case_${c.id}')" title="Bookmark this card">&#9733;</button>
+    </div>
+    <div class="card-front-scroll">
+      <div class="card-title">${c.name}</div>
+      <div class="card-insight">
+        <div class="card-section-title" style="margin-bottom:4px;">In Plain Terms</div>
+        ${c.plain || c.why}
+      </div>
+      <div class="card-section">
+        <div class="card-section-title">What Happened</div>
+        <div class="card-description">${c.what}</div>
+      </div>
+      <div class="card-insight">
+        <div class="card-section-title" style="margin-bottom:4px;">Why It Matters</div>
+        ${c.why}
+      </div>
+      <div class="card-tags">
+        ${c.tags.map(t => `<span class="card-tag" style="background:${tagColors[t] || '#6b7280'}">${t}</span>`).join("")}
+      </div>
+    </div>
+    <div class="card-prompt">Tap to reveal failed controls, audit angle, and exam insight &rarr;</div>
+  `;
+
+  document.getElementById("cardBack").innerHTML = `
+    <div class="card-header">
+      <span class="card-id">${c.id}</span>
+      <button class="star-btn ${bk}" onclick="event.stopPropagation(); toggleStar('case_${c.id}')" title="Bookmark this card">&#9733;</button>
+    </div>
+    <div class="card-back-inner">
+      <div class="card-section">
+        <div class="card-section-title">Controls Missing or Weak</div>
+        <ul>${c.controls.map(x => `<li>${x}</li>`).join("")}</ul>
+      </div>
+      <div class="card-section">
+        <div class="card-section-title">Audit Angle</div>
+        <p style="font-size:0.875rem;line-height:1.55;color:var(--text);">${c.audit}</p>
+      </div>
+      <div class="card-insight">
+        <div class="card-section-title" style="margin-bottom:4px;">Special Insight</div>
+        ${c.insight}
+      </div>
+      <div class="card-tags">
+        ${c.tags.map(t => `<span class="card-tag" style="background:${tagColors[t] || '#6b7280'}">${t}</span>`).join("")}
+      </div>
+    </div>
+    <div class="card-prompt">Tap to see the case &larr;</div>
+  `;
+}
+
+function renderControlCard(ctrl) {
+  const bk = bookmarks["ctrl_" + ctrl.code] ? "starred" : "";
+
+  let displayCases = ctrl.cases;
+  if (activeDomains.size > 0 || activeTiers.size > 0) {
+    displayCases = ctrl.cases.filter(cc => {
+      const caseObj = cases.find(x => x.id === cc.id);
+      if (!caseObj) return false;
+      const domainOk = activeDomains.size === 0 || caseObj.tags.some(t => activeDomains.has(t));
+      const tierOk = activeTiers.size === 0 || activeTiers.has(caseObj.tier);
+      return domainOk && tierOk;
+    });
+  }
+
+  document.getElementById("cardFront").innerHTML = `
+    <div class="card-header">
+      <span class="card-id">${ctrl.code}</span>
+      <button class="star-btn ${bk}" onclick="event.stopPropagation(); toggleStar('ctrl_${ctrl.code}')" title="Bookmark this card">&#9733;</button>
+    </div>
+    <div class="card-front-scroll">
+      <div class="card-title">${ctrl.name}</div>
+      <div class="card-insight">
+        <div class="card-section-title" style="margin-bottom:4px;">In Plain Terms</div>
+        ${ctrl.simple || ctrl.desc}
+      </div>
+      <div class="card-section">
+        <div class="card-section-title">What This Control Does</div>
+        <div class="card-description">${ctrl.desc}</div>
+      </div>
+      <div class="card-insight">
+        <div class="card-section-title" style="margin-bottom:4px;">Why It Matters</div>
+        ${ctrl.why || ctrl.desc}
+      </div>
+      <div style="margin-top:auto;">
+        <div style="font-size:1.5rem;text-align:center;margin:16px 0;color:var(--accent);font-weight:700;">${displayCases.length} case${displayCases.length !== 1 ? "s" : ""}</div>
+      </div>
+    </div>
+    <div class="card-prompt">Which cases could this have prevented? Tap to reveal &rarr;</div>
+  `;
+
+  document.getElementById("cardBack").innerHTML = `
+    <div class="card-header">
+      <span class="card-id">${ctrl.code}</span>
+      <button class="star-btn ${bk}" onclick="event.stopPropagation(); toggleStar('ctrl_${ctrl.code}')" title="Bookmark this card">&#9733;</button>
+    </div>
+    <div class="card-back-inner">
+      <div class="card-section">
+        <div class="card-section-title">${ctrl.name} \u2014 Associated Cases</div>
+        ${displayCases.map(cc => {
+          const caseObj = cases.find(x => x.id === cc.id);
+          const tierClass = caseObj ? (caseObj.tier === "1-2" ? "tier-1-2" : caseObj.tier === "3" ? "tier-3" : "tier-4-5") : "";
+          return `<div class="control-case-item">
+            <strong>${cc.id}</strong>
+            <span>${cc.note}${caseObj ? ` <span class="card-tag ${tierClass}" style="font-size:0.5625rem;vertical-align:middle;">${caseObj.tier === "1-2" ? "T1-2" : caseObj.tier === "3" ? "T3" : "T4-5"}</span>` : ""}</span>
+          </div>`;
+        }).join("")}
+      </div>
+    </div>
+    <div class="card-prompt">Tap to see the control &larr;</div>
+  `;
+}
+
+function renderExamCard(q) {
+  const bk = bookmarks["exam_" + q.id] ? "starred" : "";
+  const examColor = examColors[q.exam] || "#f43f5e";
+  const examClass = q.exam === "Mock 2026" ? "mock-2026" : q.exam === "Exam A" ? "exam-a" : "exam-b";
+
+  document.getElementById("cardFront").innerHTML = `
+    <div class="card-header">
+      <span class="card-id exam-id">${q.num} <span class="exam-badge ${examClass}">${q.exam}</span></span>
+      <button class="star-btn ${bk}" onclick="event.stopPropagation(); toggleStar('exam_${q.id}')" title="Bookmark this card">&#9733;</button>
+    </div>
+    <div class="card-front-scroll">
+      <div class="card-title">${q.title}</div>
+      <div class="card-section">
+        <div class="card-section-title" style="color:${examColor}">Scenario</div>
+        <div class="card-description">${q.scenario}</div>
+      </div>
+      <div class="card-section">
+        <div class="card-section-title" style="color:${examColor}">Questions</div>
+        <div class="exam-subq">${q.parts}</div>
+      </div>
+      <div class="card-tags">
+        ${q.tags.map(t => `<span class="card-tag" style="background:${tagColors[t] || '#6b7280'}">${t}</span>`).join("")}
+      </div>
+    </div>
+    <div class="card-prompt">Think about your answer, then tap to reveal model answer &rarr;</div>
+  `;
+
+  document.getElementById("cardBack").innerHTML = `
+    <div class="card-header">
+      <span class="card-id exam-id">${q.num} <span class="exam-badge ${examClass}">${q.exam}</span></span>
+      <button class="star-btn ${bk}" onclick="event.stopPropagation(); toggleStar('exam_${q.id}')" title="Bookmark this card">&#9733;</button>
+    </div>
+    <div class="card-back-inner">
+      <div class="card-section">
+        <div class="card-section-title" style="color:${examColor}">Model Answer \u2014 ${q.title}</div>
+        ${q.answer}
+      </div>
+    </div>
+    <div class="card-prompt">Tap to see the question &larr;</div>
+  `;
+}
+
+// ===== INTERACTIONS =====
+function flipCard() {
+  if (viewMode !== "single" || mode === "home" || mode === "nist") return;
+  flipped = !flipped;
+  document.getElementById("cardFlipper").classList.toggle("flipped", flipped);
+}
+
+function nextCard() {
+  if (viewMode !== "single" || mode === "home" || mode === "nist") return;
+  if (currentIndex < filteredCards.length - 1) {
+    currentIndex++;
+    flipped = false;
+    renderCard();
+  }
+}
+
+function prevCard() {
+  if (viewMode !== "single" || mode === "home" || mode === "nist") return;
+  if (currentIndex > 0) {
+    currentIndex--;
+    flipped = false;
+    renderCard();
+  }
+}
+
+function setMode(m) {
+  mode = m;
+  currentIndex = 0;
+  flipped = false;
+  document.getElementById("modeHomeBtn").classList.toggle("active", m === "home");
+  document.getElementById("modeCaseBtn").classList.toggle("active", m === "case");
+  document.getElementById("modeControlBtn").classList.toggle("active", m === "control");
+  document.getElementById("modeExamBtn").classList.toggle("active", m === "exam");
+  document.getElementById("modeNistBtn").classList.toggle("active", m === "nist");
+
+  const isHome = m === "home";
+  const isNist = m === "nist";
+  const mainEl = document.querySelector(".main");
+  const filterBar = document.querySelector(".filter-bar");
+  const nistPage = document.getElementById("nistPage");
+  const homePage = document.getElementById("homePage");
+  const viewToggle = document.getElementById("viewToggle");
+  const bookmarkBtn = document.getElementById("bookmarkFilterBtn");
+  const shuffleBtn = document.getElementById("shuffleBtn");
+
+  // Show/hide NIST reference page vs flashcard area
+  mainEl.style.display = isHome || isNist ? "none" : "block";
+  filterBar.style.display = isHome || isNist ? "none" : "block";
+  homePage.classList.toggle("visible", isHome);
+  nistPage.classList.toggle("visible", isNist);
+  viewToggle.style.display = isHome || isNist ? "none" : "flex";
+  bookmarkBtn.style.display = isHome || isNist ? "none" : "inline-flex";
+  shuffleBtn.style.display = isHome || isNist ? "none" : "inline-flex";
+
+  if (!isHome && !isNist) {
+    // Show/hide appropriate filters
+    document.getElementById("domainFilters").style.display = "flex";
+    document.getElementById("tierFilters").style.display = m === "exam" ? "none" : "flex";
+    document.getElementById("examFilters").style.display = m === "exam" ? "flex" : "none";
+
+    // Toggle exam mode class on main for styling
+    mainEl.classList.toggle("exam-mode", m === "exam");
+
+    updateFilteredCards();
+    renderCard();
+  }
+}
+
+function toggleNistFn(headerEl) {
+  const card = headerEl.parentElement;
+  card.classList.toggle("open");
+}
+
+function toggleStar(key) {
+  if (bookmarks[key]) {
+    delete bookmarks[key];
+  } else {
+    bookmarks[key] = true;
+  }
+  localStorage.setItem("cyberFlashBookmarks", JSON.stringify(bookmarks));
+  if (bookmarkFilter) {
+    updateFilteredCards();
+  }
+  renderCard();
+}
+
+function toggleBookmarkFilter() {
+  bookmarkFilter = !bookmarkFilter;
+  document.getElementById("bookmarkFilterBtn").classList.toggle("active", bookmarkFilter);
+  currentIndex = 0;
+  flipped = false;
+  updateFilteredCards();
+  renderCard();
+}
+
+function shuffleCards() {
+  if (filteredCards.length < 2) return;
+  if (mode === "case") {
+    for (let i = cases.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cases[i], cases[j]] = [cases[j], cases[i]];
+    }
+  } else if (mode === "control") {
+    for (let i = controlsData.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [controlsData[i], controlsData[j]] = [controlsData[j], controlsData[i]];
+    }
+  } else {
+    for (let i = examQuestions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [examQuestions[i], examQuestions[j]] = [examQuestions[j], examQuestions[i]];
+    }
+  }
+  currentIndex = 0;
+  flipped = false;
+  updateFilteredCards();
+  renderCard();
+  const btn = document.getElementById("shuffleBtn");
+  btn.style.transform = "rotate(180deg)";
+  setTimeout(() => { btn.style.transform = ""; }, 300);
+}
+
+function toggleDarkMode() {
+  darkMode = !darkMode;
+  document.body.classList.toggle("dark", darkMode);
+  localStorage.setItem("cyberFlashDark", darkMode.toString());
+}
+
+// ===== KEYBOARD =====
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowRight") { e.preventDefault(); nextCard(); }
+  else if (e.key === "ArrowLeft") { e.preventDefault(); prevCard(); }
+  else if (e.key === " ") { e.preventDefault(); flipCard(); }
+  else if (e.key === "s" || e.key === "S") {
+    if (mode === "home" || mode === "nist") return;
+    if (filteredCards.length === 0) return;
+    const card = filteredCards[currentIndex];
+    const key = mode === "case" ? "case_" + card.id : mode === "control" ? "ctrl_" + card.code : "exam_" + card.id;
+    toggleStar(key);
+  }
+});
+
+// ===== TOUCH SWIPE =====
+let touchStartX = 0;
+let touchStartY = 0;
+document.getElementById("cardContainer").addEventListener("touchstart", e => {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, {passive: true});
+
+document.getElementById("cardContainer").addEventListener("touchend", e => {
+  const dx = e.changedTouches[0].screenX - touchStartX;
+  const dy = e.changedTouches[0].screenY - touchStartY;
+  if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+    if (dx < 0) nextCard();
+    else prevCard();
+  }
+}, {passive: true});
+
+// ===== START =====
+init();
+</script>
+</body>
+</html>
